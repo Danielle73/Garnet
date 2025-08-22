@@ -1,9 +1,13 @@
 import './index.css'
+import TrackerScreen from './components/ui/TrackerScreen';
+
 
 function App() {
 return(
   <>
-<h1 className='text-amber-700 text-5xl bg-blue-500 p-4'>G'day</h1>  </>
+    <h1 className='text-red-700'>Garnet App.</h1>
+    <TrackerScreen></TrackerScreen>
+  </>
 );
 }
 
