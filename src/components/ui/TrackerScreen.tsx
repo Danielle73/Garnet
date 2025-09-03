@@ -81,9 +81,11 @@ function TrackerScreen() {
     : []
 
   return (
-    <div className="space-y-4">
-      <h1 className="text-xl font-bold">Period Tracker</h1>
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 px-4 py-6 sm:px-6 lg:px-8">
+  <div className="max-w-md mx-auto space-y-6">
+<h1 className="text-2xl font-bold text-gray-900 text-center sm:text-3xl">Period Tracker</h1>
       
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
       <Calendar
         mode="single"
         selected={selectedDate}
@@ -109,37 +111,60 @@ function TrackerScreen() {
           previewRange: { backgroundColor: '#dbeafe', color: '#1e40af' },
           previewEnd: { backgroundColor: '#2563eb', color: 'white', fontWeight: 'bold' }
         }}
+            className="w-full"
       />
+      </div>
       
       {selectedDate && (
-        <p>Selected: {selectedDate.toDateString()}</p>
-      )}
+  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+    <p className="text-sm font-medium text-blue-900">
+      Selected: {selectedDate.toDateString()}
+    </p>
+  </div>      )}
       
       {currentEntry && (
-        <p className="text-sm text-gray-600">
-          Current start date: {new Date(currentEntry.startDate).toDateString()}
-        </p>
-      )}
+     <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+    <p className="text-sm font-medium text-green-900">
+      Start date: {new Date(currentEntry.startDate).toDateString()}
+    </p>
+  </div>
+ )}
       
-      <Button onClick={handleSubmit}>
-        {loggingStep === "start" ? "Log Start Date" : "Log End Date"}
-      </Button>
-      
-      <div>
-        <h2 className="text-lg font-semibold">Logged Periods</h2>
-        {periodEntries.length === 0 ? (
-          <p className="text-gray-500">No periods logged yet.</p>
-        ) : (
-          <ul className="list-disc pl-5">
-            {periodEntries.map((entry, i) => (
-              <li key={i}>
-                Start: {new Date(entry.startDate).toDateString()}{" "}
-                {entry.endDate && `→ End: ${new Date(entry.endDate).toDateString()}`}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+<Button 
+  onClick={handleSubmit}
+  className="w-full py-3 text-base font-medium bg-pink-600 hover:bg-pink-700 focus:ring-pink-500 sm:w-auto sm:px-8"
+>
+  {loggingStep === "start" ? "Log Start Date" : "Log End Date"}
+</Button> 
+
+
+<div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
+  <h2 className="text-lg font-semibold text-gray-900 mb-4">
+    Logged Periods
+  </h2>
+  {periodEntries.length === 0 ? (
+    <div className="text-center py-8">
+      <p className="text-gray-500 text-sm">No periods logged yet.</p>
+      <p className="text-gray-400 text-xs mt-1">Start by selecting a date above</p>
+    </div>
+  ) : (
+    <div className="space-y-3">
+      {periodEntries.map((entry, i) => (
+        <div key={i} className="bg-gray-50 rounded-lg p-3 border-l-4 border-pink-400">
+          <p className="text-sm font-medium text-gray-900">
+            Start: {new Date(entry.startDate).toDateString()}
+          </p>
+          {entry.endDate && (
+            <p className="text-sm text-gray-600 mt-1">
+              End: {new Date(entry.endDate).toDateString()}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  )}
+</div>
+    </div>
     </div>
   )
 }
