@@ -83,7 +83,7 @@ function TrackerScreen() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 px-4 py-6 sm:px-6 lg:px-8">
   <div className="max-w-md mx-auto space-y-6">
-<h1 className="text-2xl font-bold text-gray-900 text-center sm:text-3xl">Period Tracker</h1>
+<h1 className="text-2xl font-bold text-center sm:text-3xl text-red-700">Garnet Period Tracker</h1>
       
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
       <Calendar
