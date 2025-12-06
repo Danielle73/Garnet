@@ -1,11 +1,18 @@
 import './index.css'
-import TrackerScreen from './components/ui/TrackerScreen';
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import HomeScreen from "@/screens/HomeScreen"
+import TrackerScreen from '@/screens/TrackerScreen';
 
 
 function App() {
 return(
   <>
-    <TrackerScreen />
+  <BrowserRouter>
+  <Routes>
+        <Route path="/" element={<HomeScreen />} />
+        <Route path="/tracker" element={<TrackerScreen />} />
+      </Routes>
+  </BrowserRouter>
   </>
 );
 }
