@@ -1,4 +1,7 @@
 import { type PeriodEntry } from "@/types/period"
+import { Link } from "react-router-dom"
+import { Button } from "@/components/ui/button"
+
 
 interface HistoryScreenProps {
   entries: PeriodEntry[]
@@ -35,6 +38,12 @@ function HistoryScreen({ entries }: HistoryScreenProps) {
             ))}
           </div>
         )}
+
+        <Link to="/tracker">
+          <Button className="w-full ml-10 py-3 bg-pink-600 hover:bg-pink-700  focus:ring-pink-500 sm:w-auto sm:px-8 text-white mt-4">
+                Back to Calendar
+          </Button>
+          </Link>
       </div>
     </div>
   )
