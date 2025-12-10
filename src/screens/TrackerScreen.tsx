@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Calendar } from "@/components/ui/calendar"
 import { Button } from "@/components/ui/button"
 import type { PeriodEntry } from "@/types/period"
+import { Link } from "react-router-dom"
 
 // Helper function to get all dates between two dates
 const getDatesInRange = (startDate: Date, endDate: Date): Date[] => {
@@ -39,9 +40,13 @@ const getAllPeriodDates = (entries: PeriodEntry[]) => {
   return { startDates, endDates, rangeDates }
 }
 
-function TrackerScreen() {
+function TrackerScreen({
+  periodEntries,
+  setPeriodEntries}: {
+    periodEntries: PeriodEntry[]
+    setPeriodEntries: React.Dispatch<React.SetStateAction<PeriodEntry[]>>
+  }) {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>()
-  const [periodEntries, setPeriodEntries] = useState<PeriodEntry[]>([])
   const [loggingStep, setLoggingStep] = useState<"start" | "end">("start")
   const [currentEntry, setCurrentEntry] = useState<PeriodEntry | null>(null)
 
@@ -138,7 +143,14 @@ function TrackerScreen() {
 </Button> 
 
 
-<div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
+<Link to="/history">
+  <Button className="w-full ml-10 py-3 bg-purple-600 hover:bg-purple-700  focus:ring-purple-500 sm:w-auto sm:px-8 text-white mt-4">
+    View Logged Dates
+  </Button>
+</Link>
+
+
+{/* <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
   <h2 className="text-lg font-semibold text-gray-900 mb-4">
     Logged Periods
   </h2>
@@ -163,9 +175,10 @@ function TrackerScreen() {
       ))}
     </div>
   )}
-</div>
+</div> */}
     </div>
     </div>
+   
   )
 }
 
