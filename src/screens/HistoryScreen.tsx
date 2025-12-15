@@ -39,8 +39,12 @@ function HistoryScreen({ entries }: HistoryScreenProps) {
           </div>
         )}
 
-        <Link to="/tracker">
           <Button className="w-full ml-10 py-3 bg-pink-600 hover:bg-pink-700  focus:ring-pink-500 sm:w-auto sm:px-8 text-white mt-4">
+                Delete dates
+          </Button>
+
+        <Link to="/tracker">
+          <Button className="w-full ml-10 py-3 bg-purple-600 hover:bg-purple-700  focus:ring-purple-500 sm:w-auto sm:px-8 text-white mt-4">
                 Back to Calendar
           </Button>
           </Link>
