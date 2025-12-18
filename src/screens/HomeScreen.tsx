@@ -1,7 +1,10 @@
+import { useState } from "react";
+import InstructionModal from "@/components/ui/instructionModal";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 function HomeScreen(){
+    const [showModal, setShowModal] = useState(false)
     const navigate = useNavigate()
 
     return (
@@ -16,12 +19,26 @@ function HomeScreen(){
           A simple and beautiful way to track your cycle.
         </p>
 
-        <Button 
+        
+      <Button 
+      className="mt-4 px-8 py-3 bg-pink-600 hover:bg-pink-700"
+      onClick={() => setShowModal(true)}>
+        Get Started
+      </Button>
+
+       {showModal && (
+        <InstructionModal
+          onClose={() => setShowModal(false)}
+          onContinue={() => navigate("/tracker")}
+        />
+      )}
+
+        {/* <Button 
           className="mt-4 px-8 py-3 bg-pink-600 hover:bg-pink-700"
           onClick={() => navigate("/tracker")}
         >
           Get Started
-        </Button>
+        </Button> */}
       </div>
     </div>
     )
