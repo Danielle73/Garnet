@@ -3,6 +3,8 @@ import { Calendar } from "@/components/ui/calendar"
 import { Button } from "@/components/ui/button"
 import type { PeriodEntry } from "@/types/period"
 import { Link } from "react-router-dom"
+import { HelpCircle } from "lucide-react"
+import InstructionModal from "@/components/ui/instructionModal"
 
 // Helper function to get all dates between two dates
 const getDatesInRange = (startDate: Date, endDate: Date): Date[] => {
@@ -40,6 +42,7 @@ const getAllPeriodDates = (entries: PeriodEntry[]) => {
   return { startDates, endDates, rangeDates }
 }
 
+
 function TrackerScreen({
   periodEntries,
   setPeriodEntries}: {
@@ -49,6 +52,8 @@ function TrackerScreen({
   const [selectedDate, setSelectedDate] = useState<Date | undefined>()
   const [loggingStep, setLoggingStep] = useState<"start" | "end">("start")
   const [currentEntry, setCurrentEntry] = useState<PeriodEntry | null>(null)
+
+  const [showHelpModal, setShowHelpModal] = useState(false);
 
   const handleSubmit = () => {
     if (!selectedDate) return
@@ -88,8 +93,22 @@ function TrackerScreen({
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 px-4 py-6 sm:px-6 lg:px-8">
   <div className="max-w-md mx-auto space-y-6">
-<h1 className="text-2xl font-bold text-center sm:text-3xl text-red-700">Garnet Period Tracker</h1>
-      
+   
+{/* Header with optional help icon */}
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-center sm:text-3xl text-red-700">
+            Garnet Period Tracker
+          </h1>
+          <button
+            onClick={() => setShowHelpModal(true)}
+            className="p-2 hover:bg-gray-200 rounded-full"
+            aria-label="Help"
+          >
+            <HelpCircle className="w-6 h-6 text-gray-600" />
+          </button>
+        </div>
+
+
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
       <Calendar
         mode="single"
@@ -176,6 +195,17 @@ function TrackerScreen({
     </div>
   )}
 </div> */}
+
+
+ {/* Help modal */}
+        {showHelpModal && (
+          <InstructionModal
+            onClose={() => setShowHelpModal(false)}
+            onContinue={() => setShowHelpModal(false)}
+            actionLabel="Close"
+            showCancel={false}
+          />
+        )}
     </div>
     </div>
    
