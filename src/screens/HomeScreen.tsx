@@ -30,6 +30,7 @@ function HomeScreen(){
         <InstructionModal
           onClose={() => setShowModal(false)}
           onContinue={() => navigate("/tracker")}
+          actionLabel="Start tracking"
         />
       )}
 
