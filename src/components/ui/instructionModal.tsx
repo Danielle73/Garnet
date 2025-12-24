@@ -1,6 +1,8 @@
 type InstructionModalProps = {
     onClose: () => void
     onContinue: () => void
+    actionLabel?: string
+    showCancel?: boolean
 }
 
 function InstructionModal({ onClose, onContinue }: InstructionModalProps){
