@@ -9,6 +9,12 @@ import type { PeriodEntry } from "./types/period"
 function App() {
   const [periodEntries, setPeriodEntries] = useState<PeriodEntry[]>([])
 
+  const handleDeleteEntry = (indexToDelete: number) => {
+    setPeriodEntries(prev => 
+      prev.filter((_, index) => index !== indexToDelete)
+    )
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -24,7 +30,10 @@ function App() {
         />
         <Route
           path="/history"
-          element={<HistoryScreen entries={periodEntries} />}
+          element={
+          <HistoryScreen 
+          entries={periodEntries} 
+          onDelete = {handleDeleteEntry}/>}
         />
       </Routes>
     </BrowserRouter>
