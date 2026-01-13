@@ -52,8 +52,11 @@ function TrackerScreen({
   const [selectedDate, setSelectedDate] = useState<Date | undefined>()
   const [loggingStep, setLoggingStep] = useState<"start" | "end">("start")
   const [currentEntry, setCurrentEntry] = useState<PeriodEntry | null>(null)
-
+  const [isEditing, setIsEditing] = useState(false)
   const [showHelpModal, setShowHelpModal] = useState(false);
+
+  const latestEntry = periodEntries[periodEntries.length - 1]
+
 
   const handleSubmit = () => {
     if (!selectedDate) return
@@ -73,7 +76,19 @@ function TrackerScreen({
         ...currentEntry,
         endDate: selectedDate.toISOString(),
       }
-      setPeriodEntries([...periodEntries, updatedEntry])
+
+      if(isEditing){
+        setPeriodEntries(prev => {
+          const updated = [...prev]
+          updated[updated.length - 1] = updatedEntry
+          return updated
+        })
+
+        setIsEditing(false)
+      } else {
+        setPeriodEntries([...periodEntries, updatedEntry])
+      }
+
       setCurrentEntry(null)
       setLoggingStep("start")
       alert("End date logged! Entry saved.")
