@@ -153,6 +153,22 @@ function TrackerScreen({
             className="w-full"
       />
       </div>
+
+      {latestEntry?.endDate && !isEditing && (
+    <Button 
+    variant="secondary"
+    onClick={() => {
+      if(!latestEntry) return
+
+      setIsEditing(true)
+      setCurrentEntry(latestEntry)
+      setLoggingStep("end")
+      setSelectedDate(undefined)
+    }}
+    >
+      Edit Last Entry
+    </Button>
+  )}
       
       {selectedDate && (
   <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
