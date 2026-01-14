@@ -189,7 +189,9 @@ function TrackerScreen({
   onClick={handleSubmit}
   className="w-full py-3 text-base font-medium bg-pink-600 hover:bg-pink-700 focus:ring-pink-500 sm:w-auto sm:px-8"
 >
-  {loggingStep === "start" ? "Log Start Date" : "Log End Date"}
+  {isEditing? "Save Changes" : loggingStep === "start" ? "Log Start Date" : "Log End Date"}
+
+
 </Button> 
 
 
