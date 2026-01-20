@@ -5,6 +5,8 @@ import HomeScreen from "@/screens/HomeScreen"
 import TrackerScreen from "@/screens/TrackerScreen"
 import HistoryScreen from "@/screens/HistoryScreen"
 import type { PeriodEntry } from "./types/period"
+import EditPeriodScreen from "@/screens/EditPeriodScreen"
+
 
 function App() {
   const [periodEntries, setPeriodEntries] = useState<PeriodEntry[]>([])
