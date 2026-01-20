@@ -37,6 +37,9 @@ function App() {
           entries={periodEntries} 
           onDelete = {handleDeleteEntry}/>}
         />
+         <Route 
+         path="/edit/:index" 
+         element={<EditPeriodScreen />} />
       </Routes>
     </BrowserRouter>
   )
