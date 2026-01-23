@@ -38,6 +38,12 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
                   )}
                 </div>
 
+                 <Link to={`/edit/${index}`}>
+                   <Button size="sm" variant="secondary">
+                      Edit
+                  </Button>
+                </Link>
+
                 <Button
                   variant="destructive"
                   size="sm"
