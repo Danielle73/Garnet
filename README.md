@@ -1,69 +1,71 @@
-# React + TypeScript + Vite
+# Garnet - Privacy-First Period Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Track your cycle privately. 
 
-Currently, two official plugins are available:
+## Ideation
+Due to commercial period tracking apps that have been caught selling menstrual health data to advertisers, monitoring your health has felt more like a *commodity* rather than an a *insight* into your health. With increasing concerns about health 
+data privacy, especially post-Roe v. Wade, many people need a period tracker 
+they can trust.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## The Solution
+Garnet is a completely client-side period tracker. All data is stored locally 
+in your browser using localStorage - no servers, no accounts, no third-party 
+access. Your health data never leaves your device.
 
-## Expanding the ESLint configuration
+## Features
+- 📅 Interactive calendar for cycle logging
+- 📊 Visual history of past cycles
+- 🔒 Complete privacy - all data stored locally
+- 📱 Responsive design for mobile and desktop
+- ⚡ Fast and lightweight (no backend needed)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
+- **React 18** - Component-based UI
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Responsive styling
+- **shadcn/ui** - Accessible component library
+- **React Router** - Multi-page navigation
+- **localStorage** - Client-side data persistence
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Technical Highlights
+- Implemented date-range state management for period logging
+- Built reusable calendar component with date highlighting
+- Designed multi-screen flow (Home → Tracker → History)
+- Optimized component architecture to avoid prop-drilling
+- Used TypeScript for type-safe data structures
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Privacy Architecture
+User Device (Browser)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+├── React App (UI)
+
+├── localStorage (Data)
+
+└── No external communication
+
+
+## Future Enhancements
+- Cycle prediction using local ML models
+- Export data as encrypted JSON
+- Symptom tracking (mood, pain levels)
+- Optional encrypted cloud backup (user-controlled)
+- Progressive Web App (installable, offline-capable)
+
+## Installation
+```bash
+git clone https://github.com/Danielle73/Garnet
+cd Garnet
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## What I Learned
+- How to architect stateful applications without a backend
+- Managing complex date-based state in React
+- Building privacy-conscious applications
+- Creating intuitive UX for sensitive personal data
+- TypeScript patterns for type-safe data structures
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Built with privacy and ethics in mind
