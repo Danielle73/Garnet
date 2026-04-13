@@ -54,6 +54,7 @@ function TrackerScreen({
   const [currentEntry, setCurrentEntry] = useState<PeriodEntry | null>(null)
   const [isEditing, setIsEditing] = useState(false)
   const [showHelpModal, setShowHelpModal] = useState(false);
+  const [message, setMessage] = useState<string | null>(null)
 
   const latestEntry = periodEntries[periodEntries.length - 1]
 
@@ -69,7 +70,8 @@ function TrackerScreen({
       }
       setCurrentEntry(newEntry)
       setLoggingStep("end")
-      alert("Start date logged!")
+      setMessage("Start date logged!")
+      setTimeout(() => setMessage(null), 2000)
     } else if (loggingStep === "end" && currentEntry) {
       // Log end date
       const updatedEntry: PeriodEntry = {
@@ -91,7 +93,8 @@ function TrackerScreen({
 
       setCurrentEntry(null)
       setLoggingStep("start")
-      alert("End date logged! Entry saved.")
+      setMessage("End date logged! Entry saved.")
+      setTimeout(() => setMessage(null), 2000)
     }
     
     setSelectedDate(undefined)
@@ -123,6 +126,11 @@ function TrackerScreen({
           </button>
         </div>
 
+{message && (
+  <div className="bg-green-100 text-green-800 text-sm p-3 rounded-md">
+    {message}
+  </div>
+)}
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
       <Calendar
