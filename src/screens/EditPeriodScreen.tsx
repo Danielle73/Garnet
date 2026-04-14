@@ -22,6 +22,18 @@ function EditPeriodScreen({ periodEntries, setPeriodEntries }: Props) {
     entry?.endDate ? entry.endDate.slice(0, 10) : ""
   )
 
+const originalStart = entry.startDate.slice(0, 10)
+const originalEnd = entry.endDate?.slice(0, 10) || ""
+
+const hasChanged =
+  startDate !== originalStart || endDate !== originalEnd
+
+const isValid =
+  startDate !== "" &&
+  (!endDate || new Date(endDate) >= new Date(startDate))
+
+const canSave = hasChanged && isValid
+
   if (!entry) {
     return <p className="p-4">Entry not found.</p>
   }
@@ -63,7 +75,19 @@ function EditPeriodScreen({ periodEntries, setPeriodEntries }: Props) {
         />
       </div>
 
-      <Button onClick={handleSave} className="w-full">
+      {!hasChanged && (
+  <p className="text-sm text-gray-500">
+    No changes made yet
+  </p>
+)}
+
+{hasChanged && !isValid && (
+  <p className="text-sm text-red-500">
+    End date must be after start date
+  </p>
+)}
+
+      <Button onClick={handleSave} disabled={!canSave} className="w-full bg-pink-600 hover:bg-pink-700 disabled:opacity-50">
         Save changes
       </Button>
 
