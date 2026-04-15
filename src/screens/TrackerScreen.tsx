@@ -162,22 +162,7 @@ function TrackerScreen({
       />
       </div>
 
-      {latestEntry?.endDate && !isEditing && (
-    <Button 
-    variant="secondary"
-    onClick={() => {
-      if(!latestEntry) return
 
-      setIsEditing(true)
-      setCurrentEntry(latestEntry)
-      setLoggingStep("end")
-      setSelectedDate(undefined)
-    }}
-    >
-      Edit Last Entry
-    </Button>
-  )}
-      
       {selectedDate && (
   <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
     <p className="text-sm font-medium text-blue-900">
@@ -193,14 +178,30 @@ function TrackerScreen({
   </div>
  )}
       
+<div className="space-y-2">
 <Button 
   onClick={handleSubmit}
   className="w-full py-3 text-base font-medium bg-pink-600 hover:bg-pink-700 focus:ring-pink-500 sm:w-auto sm:px-8"
 >
   {isEditing? "Save Changes" : loggingStep === "start" ? "Log Start Date" : "Log End Date"}
-
-
 </Button> 
+
+    {latestEntry?.endDate && !isEditing && (
+    <Button 
+    variant="secondary"
+    onClick={() => {
+      if(!latestEntry) return
+
+      setIsEditing(true)
+      setCurrentEntry(latestEntry)
+      setLoggingStep("end")
+      setSelectedDate(undefined)
+    }}
+    >
+      Edit Last Entry
+    </Button>
+  )}
+</div>      
 
 
 <Link to="/history">
