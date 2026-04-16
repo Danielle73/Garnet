@@ -187,19 +187,13 @@ function TrackerScreen({
 </Button> 
 
     {latestEntry?.endDate && !isEditing && (
-    <Button 
-    variant="secondary"
-    onClick={() => {
-      if(!latestEntry) return
-
-      setIsEditing(true)
-      setCurrentEntry(latestEntry)
-      setLoggingStep("end")
-      setSelectedDate(undefined)
-    }}
-    >
-      Edit Last Entry
-    </Button>
+  <Button 
+  variant="outline"
+  className="w-full py-3 border-pink-600 text-pink-600 hover:bg-pink-50"
+  onClick={() => setIsEditing(true)}
+>
+  Edit Last Entry
+</Button>
   )}
      
 
