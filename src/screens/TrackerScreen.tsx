@@ -201,14 +201,16 @@ function TrackerScreen({
       Edit Last Entry
     </Button>
   )}
-</div>      
+     
 
 
 <Link to="/history">
-  <Button className="w-full ml-10 py-3 bg-purple-600 hover:bg-purple-700  focus:ring-purple-500 sm:w-auto sm:px-8 text-white mt-4">
-    View Logged Dates
-  </Button>
+<Button className="w-full py-3 bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 text-white mt-4">
+  View Logged Dates
+</Button>
 </Link>
+
+</div> 
 
 
 {/* <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
