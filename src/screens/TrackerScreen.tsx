@@ -52,7 +52,6 @@ function TrackerScreen({
   const [selectedDate, setSelectedDate] = useState<Date | undefined>()
   const [loggingStep, setLoggingStep] = useState<"start" | "end">("start")
   const [currentEntry, setCurrentEntry] = useState<PeriodEntry | null>(null)
-  const [isEditing, setIsEditing] = useState(false)
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [message, setMessage] = useState<string | null>(null)
 
@@ -60,45 +59,35 @@ function TrackerScreen({
 
 
   const handleSubmit = () => {
-    if (!selectedDate) return
-    
-    if (loggingStep === "start") {
-      // Log start date
-      const newEntry: PeriodEntry = {
-        startDate: selectedDate.toISOString(),
-        endDate: ""
-      }
-      setCurrentEntry(newEntry)
-      setLoggingStep("end")
-      setMessage("Start date logged!")
-      setTimeout(() => setMessage(null), 2000)
-    } else if (loggingStep === "end" && currentEntry) {
-      // Log end date
-      const updatedEntry: PeriodEntry = {
-        ...currentEntry,
-        endDate: selectedDate.toISOString(),
-      }
+  if (!selectedDate) return
 
-      if(isEditing){
-        setPeriodEntries(prev => {
-          const updated = [...prev]
-          updated[updated.length - 1] = updatedEntry
-          return updated
-        })
-
-        setIsEditing(false)
-      } else {
-        setPeriodEntries([...periodEntries, updatedEntry])
-      }
-
-      setCurrentEntry(null)
-      setLoggingStep("start")
-      setMessage("End date logged! Entry saved.")
-      setTimeout(() => setMessage(null), 2000)
+  if (loggingStep === "start") {
+    const newEntry: PeriodEntry = {
+      startDate: selectedDate.toISOString(),
+      endDate: ""
     }
-    
-    setSelectedDate(undefined)
+
+    setCurrentEntry(newEntry)
+    setLoggingStep("end")
+    setMessage("Start date logged!")
+    setTimeout(() => setMessage(null), 2000)
+
+  } else if (loggingStep === "end" && currentEntry) {
+    const updatedEntry: PeriodEntry = {
+      ...currentEntry,
+      endDate: selectedDate.toISOString(),
+    }
+
+    setPeriodEntries([...periodEntries, updatedEntry])
+
+    setCurrentEntry(null)
+    setLoggingStep("start")
+    setMessage("End date logged! Entry saved.")
+    setTimeout(() => setMessage(null), 2000)
   }
+
+  setSelectedDate(undefined)
+}
 
   // Get all the dates to highlight for completed periods
   const { startDates, endDates, rangeDates } = getAllPeriodDates(periodEntries)
@@ -183,19 +172,8 @@ function TrackerScreen({
   onClick={handleSubmit}
   className="w-full py-3 text-base font-medium bg-pink-600 hover:bg-pink-700 focus:ring-pink-500 sm:w-auto sm:px-8"
 >
-  {isEditing? "Save Changes" : loggingStep === "start" ? "Log Start Date" : "Log End Date"}
+  {loggingStep === "start" ? "Log Start Date" : "Log End Date"}
 </Button> 
-
-    {latestEntry?.endDate && !isEditing && (
-  <Button 
-  variant="outline"
-  className="w-full py-3 border-pink-600 text-pink-600 hover:bg-pink-50"
-  onClick={() => setIsEditing(true)}
->
-  Edit Last Entry
-</Button>
-  )}
-     
 
 
 <Link to="/history">
