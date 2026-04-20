@@ -51,6 +51,7 @@ function TrackerScreen({
   }) {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>()
   const [loggingStep, setLoggingStep] = useState<"start" | "end">("start")
+  const [hasJustLogged, setHasJustLogged] = useState(false)
   const [currentEntry, setCurrentEntry] = useState<PeriodEntry | null>(null)
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [message, setMessage] = useState<string | null>(null)
@@ -82,6 +83,7 @@ function TrackerScreen({
 
     setCurrentEntry(null)
     setLoggingStep("start")
+    setHasJustLogged(true)
     setMessage("End date logged! Entry saved.")
     setTimeout(() => setMessage(null), 2000)
   }
@@ -168,12 +170,24 @@ function TrackerScreen({
  )}
       
 <div className="space-y-2">
-<Button 
-  onClick={handleSubmit}
-  className="w-full py-3 text-base font-medium bg-pink-600 hover:bg-pink-700 focus:ring-pink-500 sm:w-auto sm:px-8"
->
-  {loggingStep === "start" ? "Log Start Date" : "Log End Date"}
-</Button> 
+{!hasJustLogged && (
+  <Button
+    onClick={handleSubmit}
+    className="w-full py-3 bg-pink-600 hover:bg-pink-700 text-white"
+  >
+    {loggingStep === "start" ? "Log Start Date" : "Log End Date"}
+  </Button>
+)}
+
+{hasJustLogged && (
+  <Button
+    variant="secondary"
+    className="w-full"
+    onClick={() => setHasJustLogged(false)}
+  >
+    Log Another Period
+  </Button>
+)}
 
 
 <Link to="/history">
