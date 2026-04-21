@@ -56,8 +56,6 @@ function TrackerScreen({
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [message, setMessage] = useState<string | null>(null)
 
-  const latestEntry = periodEntries[periodEntries.length - 1]
-
 
   const handleSubmit = () => {
   if (!selectedDate) return
