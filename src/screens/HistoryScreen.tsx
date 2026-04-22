@@ -1,19 +1,32 @@
 import { type PeriodEntry } from "@/types/period"
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
+import { calculateAverageCycle } from "@/lib/utils"
 
 interface HistoryScreenProps {
   entries: PeriodEntry[]
   onDelete: (index: number) => void
 }
 
+
 function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
+  const averageCycle = calculateAverageCycle(entries)
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 px-4 py-6">
       <div className="max-w-md mx-auto space-y-6">
         <h1 className="text-2xl font-bold text-center text-pink-700">
           Logged Periods
         </h1>
+
+        {averageCycle && (
+  <div className="bg-white p-4 rounded-xl shadow-sm text-center">
+    <p className="text-sm text-gray-500">Average Cycle Length</p>
+    <p className="text-xl font-bold text-pink-600">
+      {averageCycle} days
+    </p>
+  </div>
+)}
 
         {entries.length === 0 ? (
           <div className="bg-white p-6 rounded-xl shadow-sm text-center">
