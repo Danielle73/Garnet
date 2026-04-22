@@ -21,7 +21,7 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
 
         {averageCycle && (
   <div className="bg-white p-4 rounded-xl shadow-sm text-center">
-    <p className="text-sm text-gray-500">Average Cycle Length</p>
+    <p className="text-sm text-gray-500">Your Average Cycle is: </p>
     <p className="text-xl font-bold text-pink-600">
       {averageCycle} days
     </p>
