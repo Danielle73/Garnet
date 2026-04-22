@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import './index.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import HomeScreen from "@/screens/HomeScreen"
@@ -9,7 +9,18 @@ import EditPeriodScreen from "@/screens/EditPeriodScreen"
 
 
 function App() {
-  const [periodEntries, setPeriodEntries] = useState<PeriodEntry[]>([])
+const [periodEntries, setPeriodEntries] = useState<PeriodEntry[]>(() => {
+  try {
+    const stored = localStorage.getItem("periodEntries")
+    return stored ? JSON.parse(stored) : []
+  } catch {
+    return []
+  }
+})
+
+useEffect(() => {
+  localStorage.setItem("periodEntries", JSON.stringify(periodEntries))
+}, [periodEntries])
 
   const handleDeleteEntry = (indexToDelete: number) => {
     setPeriodEntries(prev => 

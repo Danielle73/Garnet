@@ -98,7 +98,7 @@ function TrackerScreen({
     : []
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 px-4 py-6 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-linear-to-br from-pink-50 to-purple-50 px-4 py-6 sm:px-6 lg:px-8">
   <div className="max-w-md mx-auto space-y-6">
    
 {/* Header with optional help icon */}
