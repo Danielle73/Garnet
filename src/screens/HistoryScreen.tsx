@@ -2,6 +2,7 @@ import { type PeriodEntry } from "@/types/period"
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { calculateAverageCycle } from "@/lib/utils"
+import { predictNextPeriod } from "@/lib/utils"
 
 interface HistoryScreenProps {
   entries: PeriodEntry[]
@@ -11,6 +12,7 @@ interface HistoryScreenProps {
 
 function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
   const averageCycle = calculateAverageCycle(entries)
+  const predictedDate = predictNextPeriod(entries)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 px-4 py-6">
@@ -24,6 +26,15 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
     <p className="text-sm text-gray-500">Your Average Cycle is: </p>
     <p className="text-xl font-bold text-pink-600">
       {averageCycle} days
+    </p>
+  </div>
+)}
+
+{predictedDate && (
+  <div className="bg-white p-4 rounded-xl shadow-sm text-center">
+    <p className="text-sm text-gray-500">Your Next Period is likely around: </p>
+    <p className="text-xl font-bold text-purple-600">
+      {predictedDate.toLocaleDateString()}
     </p>
   </div>
 )}
