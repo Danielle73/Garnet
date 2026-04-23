@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { calculateAverageCycle } from "@/lib/utils"
 import { predictNextPeriod } from "@/lib/utils"
+import { formatPrettyDate } from "@/lib/utils"
 
 interface HistoryScreenProps {
   entries: PeriodEntry[]
@@ -34,7 +35,7 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
   <div className="bg-white p-4 rounded-xl shadow-sm text-center">
     <p className="text-sm text-gray-500">Your Next Period is likely around: </p>
     <p className="text-xl font-bold text-purple-600">
-      {predictedDate.toLocaleDateString()}
+      {formatPrettyDate(predictedDate)}
     </p>
   </div>
 )}

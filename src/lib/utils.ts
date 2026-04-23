@@ -50,3 +50,24 @@ export const predictNextPeriod = (entries: PeriodEntry[]): Date | null => {
 
   return predicted
 }
+
+export const getOrdinalSuffix = (day: number): string => {
+  if (day > 3 && day < 21) return "th"
+
+  switch (day % 10) {
+    case 1: return "st"
+    case 2: return "nd"
+    case 3: return "rd"
+    default: return "th"
+  }
+}
+
+export const formatPrettyDate = (date: Date): string => {
+  const day = date.getDate()
+  const suffix = getOrdinalSuffix(day)
+
+  const weekday = date.toLocaleDateString("en-GB", { weekday: "long" })
+  const month = date.toLocaleDateString("en-GB", { month: "long" })
+
+  return `${weekday} ${day}${suffix} ${month}`
+}
