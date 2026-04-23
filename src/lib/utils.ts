@@ -28,3 +28,46 @@ export const calculateAverageCycle = (entries: PeriodEntry[]): number | null => 
   const total = cycleLengths.reduce((sum, val) => sum + val, 0)
   return Math.round(total / cycleLengths.length)
 }
+
+export const predictNextPeriod = (entries: PeriodEntry[]): Date | null => {
+  if (entries.length < 2) return null
+
+  const sorted = [...entries].sort(
+    (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+  )
+
+
+  const lastEntry = sorted[sorted.length - 1]
+  const lastStart = new Date(lastEntry.startDate)
+
+
+  const averageCycle = calculateAverageCycle(entries)
+  if (!averageCycle) return null
+
+
+  const predicted = new Date(lastStart)
+  predicted.setDate(predicted.getDate() + averageCycle)
+
+  return predicted
+}
+
+export const getOrdinalSuffix = (day: number): string => {
+  if (day > 3 && day < 21) return "th"
+
+  switch (day % 10) {
+    case 1: return "st"
+    case 2: return "nd"
+    case 3: return "rd"
+    default: return "th"
+  }
+}
+
+export const formatPrettyDate = (date: Date): string => {
+  const day = date.getDate()
+  const suffix = getOrdinalSuffix(day)
+
+  const weekday = date.toLocaleDateString("en-GB", { weekday: "long" })
+  const month = date.toLocaleDateString("en-GB", { month: "long" })
+
+  return `${weekday} ${day}${suffix} ${month}`
+}
