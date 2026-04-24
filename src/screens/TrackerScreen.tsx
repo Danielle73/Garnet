@@ -57,6 +57,8 @@ function TrackerScreen({
   const [currentEntry, setCurrentEntry] = useState<PeriodEntry | null>(null)
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [message, setMessage] = useState<string | null>(null)
+  const predictedDate = predictNextPeriod(periodEntries)
+
 
 
   const handleSubmit = () => {
