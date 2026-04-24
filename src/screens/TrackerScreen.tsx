@@ -5,6 +5,8 @@ import type { PeriodEntry } from "@/types/period"
 import { Link } from "react-router-dom"
 import { HelpCircle } from "lucide-react"
 import InstructionModal from "@/components/ui/instructionModal"
+import { predictNextPeriod } from "@/lib/utils"
+
 
 // Helper function to get all dates between two dates
 const getDatesInRange = (startDate: Date, endDate: Date): Date[] => {
@@ -134,7 +136,9 @@ function TrackerScreen({
           // Current period being logged
           previewStart: currentEntry ? [new Date(currentEntry.startDate)] : [],
           previewRange: previewRangeDates,
-          previewEnd: currentEntry && selectedDate ? [selectedDate] : []
+          previewEnd: currentEntry && selectedDate ? [selectedDate] : [],
+          // Predicted date
+          predicted: predictedDate ? [predictedDate] : []
         }}
         modifiersStyles={{
           // Completed period colors (red theme)
@@ -145,8 +149,11 @@ function TrackerScreen({
           previewStart: { backgroundColor: '#3b82f6', color: 'white', fontWeight: 'bold' },
           //previewStart: { border: '2px solid green', fontWeight: 'bold' },
           previewRange: { backgroundColor: '#dbeafe', color: '#1e40af' },
-          previewEnd: { backgroundColor: '#2563eb', color: 'white', fontWeight: 'bold' }
-        }}
+          previewEnd: { backgroundColor: '#2563eb', color: 'white', fontWeight: 'bold' },
+          // predicted date styles
+           predicted: { border: "2px dashed #7c3aed", color: "#7c3aed", fontWeight: "bold" }
+    
+          }}
             className="w-full"
       />
       </div>
