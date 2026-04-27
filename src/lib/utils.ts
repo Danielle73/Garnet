@@ -71,3 +71,18 @@ export const formatPrettyDate = (date: Date): string => {
 
   return `${weekday} ${day}${suffix} ${month}`
 }
+
+
+export const getLastCycleLength = (entries: PeriodEntry[]): number | null => {
+  if (entries.length < 2) return null
+
+  const sorted = [...entries].sort(
+    (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+  )
+
+  const last = new Date(sorted[sorted.length - 1].startDate)
+  const prev = new Date(sorted[sorted.length - 2].startDate)
+
+  const diffTime = last.getTime() - prev.getTime()
+  return Math.round(diffTime / (1000 * 60 * 60 * 24))
+}
