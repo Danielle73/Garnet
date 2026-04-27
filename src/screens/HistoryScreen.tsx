@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { calculateAverageCycle } from "@/lib/utils"
 import { predictNextPeriod } from "@/lib/utils"
 import { formatPrettyDate } from "@/lib/utils"
+import { getLastCycleLength } from "@/lib/utils"
 
 interface HistoryScreenProps {
   entries: PeriodEntry[]
@@ -14,6 +15,7 @@ interface HistoryScreenProps {
 function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
   const averageCycle = calculateAverageCycle(entries)
   const predictedDate = predictNextPeriod(entries)
+  const lastCycle = getLastCycleLength(entries)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 px-4 py-6">
@@ -27,6 +29,15 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
     <p className="text-sm text-gray-500">Your Average Cycle is: </p>
     <p className="text-xl font-bold text-pink-600">
       {averageCycle} days
+    </p>
+  </div>
+)}
+
+{lastCycle !== null && (
+  <div className="bg-white p-4 rounded-xl shadow-sm text-center">
+    <p className="text-sm text-gray-500">Your Last Cycle was: </p>
+    <p className="text-xl font-bold text-purple-600">
+      {lastCycle} days
     </p>
   </div>
 )}
