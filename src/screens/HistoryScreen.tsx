@@ -18,40 +18,46 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
   const lastCycle = getLastCycleLength(entries)
 
   return (
+ 
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 px-4 py-6">
       <div className="max-w-md mx-auto space-y-6">
         <h1 className="text-2xl font-bold text-center text-pink-700">
           Logged Periods
         </h1>
 
-        {averageCycle && (
-  <div className="bg-white p-4 rounded-xl shadow-sm text-center">
-    <p className="text-sm text-gray-500">Your Average Cycle is: </p>
-    <p className="text-xl font-bold text-pink-600">
-      {averageCycle} days
-    </p>
-  </div>
-)}
+        {(averageCycle || lastCycle || predictedDate) && (
+  <div className="grid grid-cols-2 gap-3">
+    
+    {averageCycle !== null && (
+      <div className="bg-white p-4 rounded-xl shadow-sm text-center">
+        <p className="text-xs text-gray-500">Average Cycle</p>
+        <p className="text-lg font-bold text-pink-600">
+          {averageCycle} days
+        </p>
+      </div>
+    )}
 
-{lastCycle !== null && (
-  <div className="bg-white p-4 rounded-xl shadow-sm text-center">
-    <p className="text-sm text-gray-500">Your Last Cycle was: </p>
-    <p className="text-xl font-bold text-purple-600">
-      {lastCycle} days
-    </p>
-  </div>
-)}
+    {lastCycle !== null && (
+      <div className="bg-white p-4 rounded-xl shadow-sm text-center">
+        <p className="text-xs text-gray-500">Last Cycle</p>
+        <p className="text-lg font-bold text-purple-600">
+          {lastCycle} days
+        </p>
+      </div>
+    )}
 
-{predictedDate && (
-  <div className="bg-white p-4 rounded-xl shadow-sm text-center">
-    <p className="text-sm text-gray-500">Your Next Period is likely around: </p>
-    <p className="text-xl font-bold text-purple-600">
-      {formatPrettyDate(predictedDate)}
-    </p>
+    {predictedDate && (
+      <div className="col-span-2 bg-white p-4 rounded-xl shadow-sm text-center">
+        <p className="text-xs text-gray-500">'Your Next Period is likely:</p>
+        <p className="text-lg font-bold text-indigo-600">
+          {formatPrettyDate(predictedDate)}
+        </p>
+      </div>
+    )}
   </div>
-)}
+)}       
 
-        {entries.length === 0 ? (
+       {entries.length === 0 ? (
           <div className="bg-white p-6 rounded-xl shadow-sm text-center">
             <p className="text-gray-500">No periods logged yet.</p>
           </div>
@@ -99,6 +105,7 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
         </Link>
       </div>
     </div>
+    
   )
 }
 
