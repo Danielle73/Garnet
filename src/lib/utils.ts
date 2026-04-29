@@ -115,3 +115,16 @@ export const getCycleConsistency = (entries: PeriodEntry[]): string | null => {
   if (variation <= 7) return "Fairly regular"
   return "Irregular"
 }
+
+export const getConsistencyColor = (consistency: string): string => {
+  switch (consistency) {
+    case "Very regular":
+      return "text-green-600"
+    case "Fairly regular":
+      return "text-yellow-600"
+    case "Irregular":
+      return "text-red-600"
+    default:
+      return "text-gray-600"
+  }
+}
