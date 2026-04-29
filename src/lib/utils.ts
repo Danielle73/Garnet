@@ -86,3 +86,32 @@ export const getLastCycleLength = (entries: PeriodEntry[]): number | null => {
   const diffTime = last.getTime() - prev.getTime()
   return Math.round(diffTime / (1000 * 60 * 60 * 24))
 }
+
+export const getCycleConsistency = (entries: PeriodEntry[]): string | null => {
+  if (entries.length < 3) return null 
+
+  const sorted = [...entries].sort(
+    (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+  )
+
+  const cycleLengths: number[] = []
+
+  for (let i = 1; i < sorted.length; i++) {
+    const current = new Date(sorted[i].startDate)
+    const prev = new Date(sorted[i - 1].startDate)
+
+    const diff = Math.round(
+      (current.getTime() - prev.getTime()) / (1000 * 60 * 60 * 24)
+    )
+
+    cycleLengths.push(diff)
+  }
+
+  const max = Math.max(...cycleLengths)
+  const min = Math.min(...cycleLengths)
+  const variation = max - min
+
+  if (variation <= 3) return "Very regular"
+  if (variation <= 7) return "Fairly regular"
+  return "Irregular"
+}

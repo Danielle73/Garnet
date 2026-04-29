@@ -5,6 +5,7 @@ import { calculateAverageCycle } from "@/lib/utils"
 import { predictNextPeriod } from "@/lib/utils"
 import { formatPrettyDate } from "@/lib/utils"
 import { getLastCycleLength } from "@/lib/utils"
+import { getCycleConsistency } from "@/lib/utils"
 
 interface HistoryScreenProps {
   entries: PeriodEntry[]
@@ -16,6 +17,7 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
   const averageCycle = calculateAverageCycle(entries)
   const predictedDate = predictNextPeriod(entries)
   const lastCycle = getLastCycleLength(entries)
+  const consistency = getCycleConsistency(entries)
 
   return (
  
@@ -56,6 +58,15 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
     )}
   </div>
 )}       
+
+{consistency && (
+  <div className="bg-white p-4 rounded-xl shadow-sm text-center col-span-2">
+    <p className="text-xs text-gray-500">Cycle Consistency</p>
+    <p className="text-lg font-bold text-green-600">
+      {consistency}
+    </p>
+  </div>
+)}
 
        {entries.length === 0 ? (
           <div className="bg-white p-6 rounded-xl shadow-sm text-center">
