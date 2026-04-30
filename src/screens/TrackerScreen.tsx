@@ -163,18 +163,24 @@ function TrackerScreen({
       />
       </div>
 
+
+<div className="text-center space-y-2">
+  <p className="text-sm font-medium text-gray-600">
+    How’s are you feeling?
+  </p>
 <div className="flex justify-center gap-2">
   {moods.map((mood) => (
     <button
       key={mood}
       onClick={() => setSelectedMood(mood)}
       className={`text-2xl p-2 rounded ${
-        selectedMood === mood ? "bg-purple-200" : ""
+        selectedMood === mood ? "bg-purple-200 scale-110" : "hover:bg-gray-100"
       }`}
     >
       {mood}
     </button>
   ))}
+  </div>
 </div>
 
       {selectedDate && (
