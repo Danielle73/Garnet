@@ -91,6 +91,10 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
                       End: {new Date(entry.endDate).toDateString()}
                     </p>
                   )}
+
+                  {entry.mood && (
+                    <p className="text-xl mt-2">{entry.mood}</p>
+                    )}
                 </div>
 
                  <Link to={`/edit/${index}`}>
