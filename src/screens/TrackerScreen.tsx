@@ -164,7 +164,7 @@ function TrackerScreen({
       </div>
 
 
-<div className="text-center space-y-2">
+<div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 space-y-3">
   <p className="text-sm font-medium text-gray-600">
     How’s are you feeling?
   </p>
@@ -173,7 +173,7 @@ function TrackerScreen({
     <button
       key={mood}
       onClick={() => setSelectedMood(mood)}
-      className={`text-2xl p-2 rounded ${
+      className={`text-2xl p-2 rounded-lg transition ${
         selectedMood === mood ? "bg-purple-200 scale-110" : "hover:bg-gray-100"
       }`}
     >
