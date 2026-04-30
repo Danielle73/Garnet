@@ -58,6 +58,8 @@ function TrackerScreen({
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [message, setMessage] = useState<string | null>(null)
   const predictedDate = predictNextPeriod(periodEntries)
+  const moods = ["😊", "😐", "😢", "😡", "😴"]
+  const [selectedMood, setSelectedMood] = useState<string | null>(null)
 
 
 
@@ -79,6 +81,7 @@ function TrackerScreen({
     const updatedEntry: PeriodEntry = {
       ...currentEntry,
       endDate: selectedDate.toISOString(),
+      mood: selectedMood || undefined
     }
 
     setPeriodEntries([...periodEntries, updatedEntry])
@@ -161,12 +164,32 @@ function TrackerScreen({
       </div>
 
 
+<div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 space-y-3">
+  <p className="text-sm font-medium text-gray-600">
+    How’s are you feeling?
+  </p>
+<div className="flex justify-center gap-2">
+  {moods.map((mood) => (
+    <button
+      key={mood}
+      onClick={() => setSelectedMood(mood)}
+      className={`text-2xl p-2 rounded-lg transition ${
+        selectedMood === mood ? "bg-purple-200 scale-110" : "hover:bg-gray-100"
+      }`}
+    >
+      {mood}
+    </button>
+  ))}
+  </div>
+</div>
+
       {selectedDate && (
   <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
     <p className="text-sm font-medium text-blue-900">
       Selected: {selectedDate.toDateString()}
     </p>
-  </div>      )}
+  </div>
+)}
       
       {currentEntry && (
      <div className="bg-green-50 border border-green-200 rounded-lg p-3">
