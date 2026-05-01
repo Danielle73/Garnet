@@ -95,14 +95,17 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
                   {entry.mood && (
                     <p className="text-xl mt-2">{entry.mood}</p>
                     )}
+
+                     {entry.flow && (
+                  <p className="text-sm text-gray-600 mt-1">
+                    Flow: {entry.flow}
+                  </p>)
+                  }
+
+
                 </div>
 
-                {entry.flow && (
-  <p className="text-sm text-gray-600 mt-1">
-    Flow: {entry.flow}
-  </p>
-)}
-
+            
                  <Link to={`/edit/${index}`}>
                    <Button size="sm" variant="secondary">
                       Edit

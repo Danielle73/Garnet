@@ -172,7 +172,7 @@ function TrackerScreen({
 
 
 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 space-y-3">
-  <p className="text-sm font-medium text-gray-600">
+  <p className="text-sm font-medium text-gray-600 text-center">
     How’s are you feeling?
   </p>
 <div className="flex justify-center gap-2">
