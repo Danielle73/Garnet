@@ -97,6 +97,12 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
                     )}
                 </div>
 
+                {entry.flow && (
+  <p className="text-sm text-gray-600 mt-1">
+    Flow: {entry.flow}
+  </p>
+)}
+
                  <Link to={`/edit/${index}`}>
                    <Button size="sm" variant="secondary">
                       Edit
