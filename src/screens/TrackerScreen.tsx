@@ -60,7 +60,13 @@ function TrackerScreen({
   const predictedDate = predictNextPeriod(periodEntries)
   const moods = ["😊", "😐", "😢", "😡", "😴"]
   const [selectedMood, setSelectedMood] = useState<string | null>(null)
-
+  const [selectedFlow, setSelectedFlow] = useState<
+  "light" | "medium" | "heavy" | null >(null)
+  const flows: { label: string; value: "light" | "medium" | "heavy" }[] = [
+  { label: "Light", value: "light" },
+  { label: "Medium", value: "medium" },
+  { label: "Heavy", value: "heavy" },
+]
 
 
   const handleSubmit = () => {
@@ -81,7 +87,8 @@ function TrackerScreen({
     const updatedEntry: PeriodEntry = {
       ...currentEntry,
       endDate: selectedDate.toISOString(),
-      mood: selectedMood || undefined
+      mood: selectedMood || undefined,
+      flow: selectedFlow || undefined
     }
 
     setPeriodEntries([...periodEntries, updatedEntry])
@@ -181,6 +188,30 @@ function TrackerScreen({
     </button>
   ))}
   </div>
+</div>
+
+<div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 space-y-3">
+  
+  <p className="text-sm font-medium text-gray-600 text-center">
+    How is your flow?
+  </p>
+
+  <div className="flex justify-center gap-2">
+    {flows.map((flow) => (
+      <button
+        key={flow.value}
+        onClick={() => setSelectedFlow(flow.value)}
+        className={`px-3 py-1 rounded-full text-sm transition ${
+          selectedFlow === flow.value
+            ? "bg-pink-200 text-pink-800"
+            : "bg-gray-100 hover:bg-gray-200"
+        }`}
+      >
+        {flow.label}
+      </button>
+    ))}
+  </div>
+
 </div>
 
       {selectedDate && (
