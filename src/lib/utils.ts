@@ -62,12 +62,13 @@ export const getOrdinalSuffix = (day: number): string => {
   }
 }
 
-export const formatPrettyDate = (date: Date): string => {
+export const formatPrettyDate = (dateInput: string | Date) => {
+  const date = new Date(dateInput)
   const day = date.getDate()
   const suffix = getOrdinalSuffix(day)
 
-  const weekday = date.toLocaleDateString("en-GB", { weekday: "long" })
-  const month = date.toLocaleDateString("en-GB", { month: "long" })
+  const weekday = date.toLocaleDateString("en-GB", { weekday: "short" })
+  const month = date.toLocaleDateString("en-GB", { month: "short" })
 
   return `${weekday} ${day}${suffix} ${month}`
 }

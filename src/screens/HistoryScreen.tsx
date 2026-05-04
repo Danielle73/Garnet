@@ -83,12 +83,12 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
               >
                 <div>
                   <p className="font-medium">
-                    Start: {new Date(entry.startDate).toDateString()}
+                    Start: {formatPrettyDate(entry.startDate)}
                   </p>
 
                   {entry.endDate && (
                     <p className="text-gray-600">
-                      End: {new Date(entry.endDate).toDateString()}
+                      End: {formatPrettyDate(entry.endDate)}
                     </p>
                   )}
 
