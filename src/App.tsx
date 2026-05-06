@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import HomeScreen from "@/screens/HomeScreen"
 import TrackerScreen from "@/screens/TrackerScreen"
 import HistoryScreen from "@/screens/HistoryScreen"
+import DashboardScreen from "./screens/DashboardScreen"
 import type { PeriodEntry } from "./types/period"
 import EditPeriodScreen from "@/screens/EditPeriodScreen"
 
@@ -55,8 +56,22 @@ useEffect(() => {
          <EditPeriodScreen
          periodEntries={periodEntries}
          setPeriodEntries={setPeriodEntries} 
-         />} />
+         />} 
+         />
+
+       <Route path="/dashboard" 
+       element={
+       <DashboardScreen 
+       periodEntries={periodEntries} 
+       />
+} />
+
+
+
+
       </Routes>
+
+
     </BrowserRouter>
   )
 }

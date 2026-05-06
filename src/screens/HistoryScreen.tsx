@@ -1,12 +1,7 @@
 import { type PeriodEntry } from "@/types/period"
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { calculateAverageCycle } from "@/lib/utils"
-import { predictNextPeriod } from "@/lib/utils"
 import { formatPrettyDate } from "@/lib/utils"
-import { getLastCycleLength } from "@/lib/utils"
-import { getCycleConsistency } from "@/lib/utils"
-import { getConsistencyColor } from "@/lib/utils"
 
 interface HistoryScreenProps {
   entries: PeriodEntry[]
@@ -15,11 +10,7 @@ interface HistoryScreenProps {
 
 
 function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
-  const averageCycle = calculateAverageCycle(entries)
-  const predictedDate = predictNextPeriod(entries)
-  const lastCycle = getLastCycleLength(entries)
-  const consistency = getCycleConsistency(entries)
-  const colorClass = consistency ? getConsistencyColor(consistency) : ""
+
 
   return (
  
@@ -29,46 +20,7 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
           Logged Periods
         </h1>
 
-        {(averageCycle || lastCycle || predictedDate) && (
-  <div className="grid grid-cols-2 gap-3">
-    
-    {averageCycle !== null && (
-      <div className="bg-white p-4 rounded-xl shadow-sm text-center">
-        <p className="text-xs text-gray-500">Average Cycle</p>
-        <p className="text-lg font-bold text-pink-600">
-          {averageCycle} days
-        </p>
-      </div>
-    )}
-
-    {lastCycle !== null && (
-      <div className="bg-white p-4 rounded-xl shadow-sm text-center">
-        <p className="text-xs text-gray-500">Last Cycle</p>
-        <p className="text-lg font-bold text-purple-600">
-          {lastCycle} days
-        </p>
-      </div>
-    )}
-
-    {predictedDate && (
-      <div className="col-span-2 bg-white p-4 rounded-xl shadow-sm text-center">
-        <p className="text-xs text-gray-500">'Your Next Period is likely:</p>
-        <p className="text-lg font-bold text-indigo-600">
-          {formatPrettyDate(predictedDate)}
-        </p>
-      </div>
-    )}
-  </div>
-)}       
-
-{consistency && (
-  <div className="bg-white p-4 rounded-xl shadow-sm text-center col-span-2">
-    <p className="text-xs text-gray-500">Cycle Consistency</p>
-    <p className={`text-lg font-bold ${colorClass}`}>
-      {consistency}
-    </p>
-  </div>
-)}
+  
 
        {entries.length === 0 ? (
           <div className="bg-white p-6 rounded-xl shadow-sm text-center">
@@ -129,6 +81,15 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
             Back to Calendar
           </Button>
         </Link>
+      
+
+      <Link to="/dashboard">
+      <Button className="w-full bg-pink-600 hover:bg-pink-700 text-white mt-4">
+          View Insights
+      </Button>
+      </Link>
+
+
       </div>
     </div>
     
