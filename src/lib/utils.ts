@@ -69,8 +69,9 @@ export const formatPrettyDate = (dateInput: string | Date) => {
 
   const weekday = date.toLocaleDateString("en-GB", { weekday: "short" })
   const month = date.toLocaleDateString("en-GB", { month: "short" })
+  const year = date.getFullYear()
 
-  return `${weekday} ${day}${suffix} ${month}`
+  return `${weekday} ${day}${suffix} ${month} ${year}`
 }
 
 
