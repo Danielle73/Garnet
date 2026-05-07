@@ -78,6 +78,12 @@ function DashboardScreen({ periodEntries }: Props) {
           </Button>
         </Link>
       
+      <Link to="/history">
+<Button className="w-full py-3 bg-pink-600 hover:bg-pink-700 focus:ring-purple-500 text-white mt-4">
+  Back to Logged Dates
+</Button>
+</Link>
+
 
 
 </div>
