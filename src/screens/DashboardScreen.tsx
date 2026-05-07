@@ -27,8 +27,9 @@ function DashboardScreen({ periodEntries }: Props) {
 
   return (
     <div className="max-w-md mx-auto p-4 space-y-4">
-      <h1 className="text-xl font-bold">Your Cycle</h1>
-
+        <h1 className="text-2xl font-bold text-center text-pink-700">
+          Your Cycle Insights
+        </h1>
 {(averageCycle || lastCycle || predictedDate) && (
    
    <div className="grid grid-cols-2 gap-3">
@@ -41,7 +42,7 @@ function DashboardScreen({ periodEntries }: Props) {
         </p>
       </div>
     )}
-
+ 
     {lastCycle !== null && (
       <div className="bg-white p-4 rounded-xl shadow-sm text-center">
         <p className="text-xs text-gray-500">Last Cycle</p>
@@ -64,7 +65,7 @@ function DashboardScreen({ periodEntries }: Props) {
 
 {consistency && (
   <div className="bg-white p-4 rounded-xl shadow-sm text-center col-span-2">
-    <p className="text-xs text-gray-500">Cycle Consistency</p>
+    <p className="text-xs text-gray-500">Cycle Consistency:</p>
     <p className={`text-lg font-bold ${colorClass}`}>
       {consistency}
     </p>
@@ -77,6 +78,12 @@ function DashboardScreen({ periodEntries }: Props) {
           </Button>
         </Link>
       
+      <Link to="/history">
+<Button className="w-full py-3 bg-pink-600 hover:bg-pink-700 focus:ring-purple-500 text-white mt-4">
+  Back to Logged Dates
+</Button>
+</Link>
+
 
 
 </div>
