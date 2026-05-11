@@ -13,7 +13,45 @@ type Props = {
   periodEntries: PeriodEntry[]
 }
 
+type DashboardCardProps = {
+  title: string
+  value: string
+  valueClassName?: string
+}
 
+function DashboardCard({
+  title,
+  value,
+  valueClassName = "",
+}: DashboardCardProps) 
+{
+  return (
+    <div
+      className={`
+        rounded-2xl 
+        border 
+        p-4 
+        shadow-sm 
+        bg-white
+      `}
+    >
+      <p className="text-sm text-gray-500">
+        {title}
+      </p>
+
+      <p
+        className={`
+          mt-2 
+          text-lg 
+          font-semibold 
+          ${valueClassName}
+        `}
+      >
+        {value}
+      </p>
+    </div>
+  )
+}
 
 function DashboardScreen({ periodEntries }: Props) {
   const averageCycle = useMemo( () => calculateAverageCycle(periodEntries), [periodEntries])
@@ -21,8 +59,6 @@ function DashboardScreen({ periodEntries }: Props) {
   const lastCycle = getLastCycleLength(periodEntries)
   const consistency = getCycleConsistency(periodEntries)
   const colorClass = consistency ? getConsistencyColor(consistency) : ""
-
-  
 
 
   return (
@@ -34,41 +70,37 @@ function DashboardScreen({ periodEntries }: Props) {
    
    <div className="grid grid-cols-2 gap-3">
     
-    {averageCycle !== null && (
-      <div className="bg-white p-4 rounded-xl shadow-sm text-center">
-        <p className="text-xs text-gray-500">Average Cycle</p>
-        <p className="text-lg font-bold text-pink-600">
-          {averageCycle} days
-        </p>
-      </div>
-    )}
- 
-    {lastCycle !== null && (
-      <div className="bg-white p-4 rounded-xl shadow-sm text-center">
-        <p className="text-xs text-gray-500">Last Cycle</p>
-        <p className="text-lg font-bold text-purple-600">
-          {lastCycle} days
-        </p>
-      </div>
-    )}
+   <DashboardCard
+  title="Average Cycle"
+  value={averageCycle ? `${averageCycle} days` : "Not enough data"}
+  valueClassName="text-pink-600"
+  
+  
+/>
 
-    {predictedDate && (
-      <div className="col-span-2 bg-white p-4 rounded-xl shadow-sm text-center">
-        <p className="text-xs text-gray-500">'Your Next Period is likely:</p>
-        <p className="text-lg font-bold text-indigo-600">
-          {formatPrettyDate(predictedDate)}
-        </p>
-      </div>
-    )}
-  </div>
-)}       
+<DashboardCard
+  title="Last Cycle"
+  value={lastCycle ? `${lastCycle} days` : "Not enough data"}
+  valueClassName="text-purple-600"
+  
+/>
 
-{consistency && (
-  <div className="bg-white p-4 rounded-xl shadow-sm text-center col-span-2">
-    <p className="text-xs text-gray-500">Cycle Consistency:</p>
-    <p className={`text-lg font-bold ${colorClass}`}>
-      {consistency}
-    </p>
+<DashboardCard
+  title="Next Period"
+  value={
+    predictedDate
+      ? formatPrettyDate(predictedDate)
+      : "Not enough data"
+  }
+  valueClassName="text-blue-600"
+  
+/>
+
+<DashboardCard
+  title="Consistency"
+  value={consistency ?? "Not enough data"}
+  valueClassName={colorClass}
+/>
   </div>
 )}
 
@@ -87,7 +119,6 @@ function DashboardScreen({ periodEntries }: Props) {
 
 
 </div>
-    
     
  
 )
