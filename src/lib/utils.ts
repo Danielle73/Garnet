@@ -130,3 +130,34 @@ export const getConsistencyColor = (consistency: string): string => {
       return "text-gray-600"
   }
 }
+
+export const getCurrentPhase = (
+  periodEntries: PeriodEntry[]
+): string | null => {
+  if (periodEntries.length === 0) return null
+
+  const latestEntry = periodEntries[periodEntries.length - 1]
+
+  const startDate = new Date(latestEntry.startDate)
+  const today = new Date()
+
+  const diffTime = today.getTime() - startDate.getTime()
+
+  const daysSinceStart = Math.floor(
+    diffTime / (1000 * 60 * 60 * 24)
+  )
+
+  if (daysSinceStart <= 5) {
+    return "Menstrual"
+  }
+
+  if (daysSinceStart <= 13) {
+    return "Follicular"
+  }
+
+  if (daysSinceStart <= 16) {
+    return "Ovulation"
+  }
+
+  return "Luteal"
+}
