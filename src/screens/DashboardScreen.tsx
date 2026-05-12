@@ -8,6 +8,12 @@ import { getLastCycleLength } from "@/lib/utils"
 import { getCycleConsistency } from "@/lib/utils"
 import { getConsistencyColor } from "@/lib/utils"
 import { useMemo } from "react"
+import {
+  Droplets,
+  CalendarDays,
+  Activity,
+  TrendingUp,
+} from "lucide-react"
 
 type Props = {
   periodEntries: PeriodEntry[]
@@ -17,12 +23,14 @@ type DashboardCardProps = {
   title: string
   value: string
   valueClassName?: string
+  icon?: React.ReactNode
 }
 
 function DashboardCard({
   title,
   value,
   valueClassName = "",
+  icon,
 }: DashboardCardProps) 
 {
   return (
@@ -35,9 +43,13 @@ function DashboardCard({
         bg-white
       `}
     >
-      <p className="text-sm text-gray-500">
-        {title}
-      </p>
+      <div className="flex items-center gap-2">
+  {icon}
+
+  <p className="text-sm text-gray-500">
+    {title}
+  </p>
+</div>
 
       <p
         className={`
@@ -74,6 +86,7 @@ function DashboardScreen({ periodEntries }: Props) {
   title="Average Cycle"
   value={averageCycle ? `${averageCycle} days` : "Not enough data"}
   valueClassName="text-pink-600"
+  icon={<Droplets className="h-4 w-4 text-pink-500" />}
   
   
 />
@@ -82,6 +95,8 @@ function DashboardScreen({ periodEntries }: Props) {
   title="Last Cycle"
   value={lastCycle ? `${lastCycle} days` : "Not enough data"}
   valueClassName="text-purple-600"
+  icon={<Activity className="h-4 w-4 text-pink-500" />}
+
   
 />
 
@@ -93,6 +108,7 @@ function DashboardScreen({ periodEntries }: Props) {
       : "Not enough data"
   }
   valueClassName="text-blue-600"
+  icon={<CalendarDays className="h-4 w-4 text-pink-500" />}
   
 />
 
@@ -100,6 +116,7 @@ function DashboardScreen({ periodEntries }: Props) {
   title="Consistency"
   value={consistency ?? "Not enough data"}
   valueClassName={colorClass}
+   icon={<TrendingUp className="h-4 w-4 text-pink-500" />}
 />
   </div>
 )}
