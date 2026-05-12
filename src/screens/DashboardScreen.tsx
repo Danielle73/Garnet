@@ -7,13 +7,16 @@ import { formatPrettyDate } from "@/lib/utils"
 import { getLastCycleLength } from "@/lib/utils"
 import { getCycleConsistency } from "@/lib/utils"
 import { getConsistencyColor } from "@/lib/utils"
+import { getCurrentPhase } from "@/lib/utils"
 import { useMemo } from "react"
 import {
   Droplets,
   CalendarDays,
   Activity,
   TrendingUp,
+  Moon
 } from "lucide-react"
+
 
 type Props = {
   periodEntries: PeriodEntry[]
@@ -71,6 +74,7 @@ function DashboardScreen({ periodEntries }: Props) {
   const lastCycle = getLastCycleLength(periodEntries)
   const consistency = getCycleConsistency(periodEntries)
   const colorClass = consistency ? getConsistencyColor(consistency) : ""
+  const currentPhase = getCurrentPhase(periodEntries)
 
 
   return (
@@ -118,6 +122,14 @@ function DashboardScreen({ periodEntries }: Props) {
   valueClassName={colorClass}
    icon={<TrendingUp className="h-4 w-4 text-pink-500" />}
 />
+
+<DashboardCard
+  title="Current Phase"
+  value={currentPhase ?? "Not enough data"}
+  valueClassName="text-pink-600"
+  icon={<Moon className="h-4 w-4 text-pink-500" />}
+/>
+
   </div>
 )}
 
