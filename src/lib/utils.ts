@@ -161,3 +161,24 @@ export const getCurrentPhase = (
 
   return "Luteal"
 }
+
+export const getPhaseDescription = (
+  phase: string | null
+): string => {
+  switch (phase) {
+    case "Menstrual":
+      return "Your body is shedding its uterine lining. Rest and recovery may feel important during this phase."
+
+    case "Follicular":
+      return "Energy and mood may begin to rise as your body prepares for ovulation."
+
+    case "Ovulation":
+      return "Ovulation may occur around this time. Some people experience increased energy or libido."
+
+    case "Luteal":
+      return "Hormone levels begin to shift. You may notice lower energy or mood changes during this phase."
+
+    default:
+      return "Log more cycle data to unlock phase insights."
+  }
+}
