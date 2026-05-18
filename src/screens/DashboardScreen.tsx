@@ -8,6 +8,7 @@ import { getLastCycleLength } from "@/lib/utils"
 import { getCycleConsistency } from "@/lib/utils"
 import { getConsistencyColor } from "@/lib/utils"
 import { getCurrentPhase } from "@/lib/utils"
+import { getPhaseDescription } from "@/lib/utils"
 import { useMemo } from "react"
 import {
   Droplets,
@@ -75,6 +76,8 @@ function DashboardScreen({ periodEntries }: Props) {
   const consistency = getCycleConsistency(periodEntries)
   const colorClass = consistency ? getConsistencyColor(consistency) : ""
   const currentPhase = getCurrentPhase(periodEntries)
+  const phaseDescription = getPhaseDescription(currentPhase)
+
 
 
   return (
@@ -84,6 +87,8 @@ function DashboardScreen({ periodEntries }: Props) {
         </h1>
 {(averageCycle || lastCycle || predictedDate) && (
    
+
+ <>
    <div className="grid grid-cols-2 gap-3">
     
    <DashboardCard
@@ -123,14 +128,31 @@ function DashboardScreen({ periodEntries }: Props) {
    icon={<TrendingUp className="h-4 w-4 text-pink-500" />}
 />
 
-<DashboardCard
-  title="Current Phase"
-  value={currentPhase ?? "Not enough data"}
-  valueClassName="text-pink-600"
-  icon={<Moon className="h-4 w-4 text-pink-500" />}
-/>
 
+</div>
+
+<div className="rounded-2xl border p-5 shadow-md bg-white space-y-2">
+  <div className="flex items-start gap-3">
+    <Moon className="h-5 w-5 text-pink-500 mt-1" />
+
+    <div className="space-y-1">
+      <p className="text-sm text-gray-500">
+        Current Phase
+      </p>
+
+      <h2 className="text-lg font-semibold text-pink-700">
+        {currentPhase ?? "Not enough data"}
+      </h2>
+
+      <p className="text-gray-600 text-sm leading-relaxed">
+        {phaseDescription}
+      </p>
+    </div>
   </div>
+</div>
+
+</>  
+
 )}
 
         <Link to="/tracker">
@@ -145,9 +167,9 @@ function DashboardScreen({ periodEntries }: Props) {
 </Button>
 </Link>
 
-
-
 </div>
+
+
     
  
 )
