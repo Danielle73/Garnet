@@ -38,16 +38,30 @@ function DashboardCard({
 }: DashboardCardProps) 
 {
   return (
-    <div
-      className={`
-        rounded-2xl 
-        border 
-        p-4 
-        shadow-sm 
-        bg-white
-      `}
-    >
-      <div className="flex items-center gap-2">
+    // <div
+    //   className={`
+    //     rounded-2xl 
+    //     border 
+    //     p-4 
+    //     shadow-sm 
+    //     bg-white
+    //   `}
+    // >
+
+<div className="
+  rounded-2xl
+  border
+  p-4
+  shadow-sm
+  bg-white
+  group
+  transition-all
+  duration-300
+  hover:border-pink-200
+  hover:shadow-md
+">
+  
+  <div className="flex items-center gap-2">
   {icon}
 
   <p className="text-sm text-gray-500">
@@ -95,7 +109,19 @@ function DashboardScreen({ periodEntries }: Props) {
   title="Average Cycle"
   value={averageCycle ? `${averageCycle} days` : "Not enough data"}
   valueClassName="text-pink-600"
-  icon={<Droplets className="h-4 w-4 text-pink-500" />}
+  // icon={<Droplets className="h-4 w-4 text-pink-500" />}
+  icon = {
+  <Droplets
+  className="
+    h-4
+    w-4
+    text-pink-500
+    transition-all
+    duration-300
+    group-hover:text-pink-700
+    group-hover:scale-115
+  "
+/>}
   
   
 />
@@ -104,7 +130,15 @@ function DashboardScreen({ periodEntries }: Props) {
   title="Last Cycle"
   value={lastCycle ? `${lastCycle} days` : "Not enough data"}
   valueClassName="text-purple-600"
-  icon={<Activity className="h-4 w-4 text-pink-500" />}
+  icon={<Activity className="
+    h-4
+    w-4
+    text-pink-500
+    transition-all
+    duration-300
+    group-hover:text-pink-700
+    group-hover:scale-115
+  "/>}
 
   
 />
@@ -117,7 +151,15 @@ function DashboardScreen({ periodEntries }: Props) {
       : "Not enough data"
   }
   valueClassName="text-blue-600"
-  icon={<CalendarDays className="h-4 w-4 text-pink-500" />}
+  icon={<CalendarDays className="
+    h-4
+    w-4
+    text-pink-500
+    transition-all
+    duration-300
+    group-hover:text-pink-700
+    group-hover:scale-115
+  " />}
   
 />
 
@@ -125,16 +167,48 @@ function DashboardScreen({ periodEntries }: Props) {
   title="Consistency"
   value={consistency ?? "Not enough data"}
   valueClassName={colorClass}
-   icon={<TrendingUp className="h-4 w-4 text-pink-500" />}
+   icon={<TrendingUp className="
+    h-4
+    w-4
+    text-pink-500
+    transition-all
+    duration-300
+    group-hover:text-pink-700
+    group-hover:scale-115
+  " />}
 />
 
 
 </div>
 
-<div className="rounded-2xl border p-5 shadow-md bg-white space-y-2">
+{/* <div className="rounded-2xl border p-5 shadow-md bg-white space-y-2"> */}
+<div className="
+  rounded-2xl
+  border
+  p-5
+  shadow-sm
+  bg-white
+  space-y-2
+  group
+  transition-all
+  duration-300
+  hover:border-pink-200
+  hover:shadow-md
+">
   <div className="flex items-start gap-3">
-    <Moon className="h-5 w-5 text-pink-500 mt-1" />
-
+    {/* <Moon className="h-6 w-6 text-pink-500 mt-0.5" /> */}
+<Moon
+  className="
+    h-6
+    w-6
+    text-pink-500
+    mt-1
+    transition-all
+    duration-300
+    group-hover:text-pink-700
+    group-hover:scale-110
+  "
+/>
     <div className="space-y-1">
       <p className="text-sm text-gray-500">
         Current Phase
