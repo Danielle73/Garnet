@@ -1,3 +1,5 @@
+import { Droplets, CalendarDays, TrendingUp,} from "lucide-react"
+
 type InstructionModalProps = {
     onClose: () => void
     onContinue: () => void
