@@ -59,7 +59,33 @@ function TrackerScreen({
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [message, setMessage] = useState<string | null>(null)
   const predictedDate = predictNextPeriod(periodEntries)
-  const moods = ["😊", "😐", "😢", "😡", "😴"]
+  // const moods = ["😊", "😐", "😢", "😡", "😴"]
+  const moods = [
+    {
+      label: "Happy",
+      value: "happy",
+      icon: Smile,
+    },
+    {
+      label: "Neutral",
+      value: "neutral",
+      icon: Meh,
+    },
+   { label: "Sad",
+     value: "sad",
+     icon: Frown,
+    },
+    {
+    label: "Tired",
+    value: "tired",
+    icon: Bed,
+    },
+    {
+     label: "Annoyed",
+     value: "annoyed",
+     icon: Annoyed,
+    }
+  ]
   const [selectedMood, setSelectedMood] = useState<string | null>(null)
   const [selectedFlow, setSelectedFlow] = useState<
   "light" | "medium" | "heavy" | null >(null)
