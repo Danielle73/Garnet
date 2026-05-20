@@ -203,7 +203,10 @@ function TrackerScreen({
     How’s are you feeling?
   </p>
 <div className="flex justify-center gap-2">
-  {moods.map((mood) => (
+  {moods.map((mood) => {
+  const Icon = mood.icon
+
+  return (
     <button
       key={mood}
       onClick={() => setSelectedMood(mood)}
