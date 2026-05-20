@@ -6,6 +6,7 @@ import { Link } from "react-router-dom"
 import { HelpCircle } from "lucide-react"
 import InstructionModal from "@/components/ui/instructionModal"
 import { predictNextPeriod } from "@/lib/utils"
+import {Smile, Meh, Frown, Bed, Annoyed,} from "lucide-react"
 
 
 // Helper function to get all dates between two dates
@@ -58,7 +59,33 @@ function TrackerScreen({
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [message, setMessage] = useState<string | null>(null)
   const predictedDate = predictNextPeriod(periodEntries)
-  const moods = ["😊", "😐", "😢", "😡", "😴"]
+  // const moods = ["😊", "😐", "😢", "😡", "😴"]
+  const moods = [
+    {
+      label: "Happy",
+      value: "happy",
+      icon: Smile,
+    },
+    {
+      label: "Neutral",
+      value: "neutral",
+      icon: Meh,
+    },
+   { label: "Sad",
+     value: "sad",
+     icon: Frown,
+    },
+    {
+    label: "Tired",
+    value: "tired",
+    icon: Bed,
+    },
+    {
+     label: "Annoyed",
+     value: "annoyed",
+     icon: Annoyed,
+    }
+  ]
   const [selectedMood, setSelectedMood] = useState<string | null>(null)
   const [selectedFlow, setSelectedFlow] = useState<
   "light" | "medium" | "heavy" | null >(null)
@@ -176,15 +203,29 @@ function TrackerScreen({
     How’s are you feeling?
   </p>
 <div className="flex justify-center gap-2">
-  {moods.map((mood) => (
+  {moods.map((mood) => {
+  const Icon = mood.icon
+
+  return (
     <button
-      key={mood}
-      onClick={() => setSelectedMood(mood)}
-      className={`text-2xl p-2 rounded-lg transition ${
-        selectedMood === mood ? "bg-purple-200 scale-110" : "hover:bg-gray-100"
-      }`}
-    >
-      {mood}
+      key={mood.value}
+  onClick={() => setSelectedMood(mood.value)}
+  className={`
+    p-3 rounded-xl transition-all
+    flex flex-col items-center gap-1
+    min-w-[70px]
+    ${
+      selectedMood === mood.value
+        ? "bg-pink-100 text-pink-700"
+        : "bg-white border"
+    }
+  `}
+>
+  <Icon className="h-5 w-5 text-pink-500" />
+
+  <span className="text-xs">
+    {mood.label}
+  </span>
     </button>
   ))}
   </div>
