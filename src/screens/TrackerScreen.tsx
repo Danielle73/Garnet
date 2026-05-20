@@ -6,6 +6,7 @@ import { Link } from "react-router-dom"
 import { HelpCircle } from "lucide-react"
 import InstructionModal from "@/components/ui/instructionModal"
 import { predictNextPeriod } from "@/lib/utils"
+import {Smile, Meh, Frown, Bed, Annoyed,} from "lucide-react"
 
 
 // Helper function to get all dates between two dates
