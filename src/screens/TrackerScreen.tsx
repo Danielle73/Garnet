@@ -208,13 +208,24 @@ function TrackerScreen({
 
   return (
     <button
-      key={mood}
-      onClick={() => setSelectedMood(mood)}
-      className={`text-2xl p-2 rounded-lg transition ${
-        selectedMood === mood ? "bg-purple-200 scale-110" : "hover:bg-gray-100"
-      }`}
-    >
-      {mood}
+      key={mood.value}
+  onClick={() => setSelectedMood(mood.value)}
+  className={`
+    p-3 rounded-xl transition-all
+    flex flex-col items-center gap-1
+    min-w-[70px]
+    ${
+      selectedMood === mood.value
+        ? "bg-pink-100 text-pink-700"
+        : "bg-white border"
+    }
+  `}
+>
+  <Icon className="h-5 w-5 text-pink-500" />
+
+  <span className="text-xs">
+    {mood.label}
+  </span>
     </button>
   ))}
   </div>
