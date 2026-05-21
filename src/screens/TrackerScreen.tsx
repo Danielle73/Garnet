@@ -213,7 +213,7 @@ function TrackerScreen({
   className={`
     p-3 rounded-xl transition-all
     flex flex-col items-center gap-1
-    min-w-[70px]
+    min-w-17.5
     ${
       selectedMood === mood.value
         ? "bg-pink-100 text-pink-700"
@@ -227,7 +227,9 @@ function TrackerScreen({
     {mood.label}
   </span>
     </button>
-  ))}
+  )
+}
+)}
   </div>
 </div>
 
