@@ -2,6 +2,7 @@ import { type PeriodEntry } from "@/types/period"
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { formatPrettyDate } from "@/lib/utils"
+import { moods } from "@/lib/moods"
 
 interface HistoryScreenProps {
   entries: PeriodEntry[]
@@ -11,10 +12,9 @@ interface HistoryScreenProps {
 
 function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
 
-
   return (
  
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 px-4 py-6">
+    <div className="min-h-screen bg-linear-to-br from-purple-50 to-pink-50 px-4 py-6">
       <div className="max-w-md mx-auto space-y-6">
         <h1 className="text-2xl font-bold text-center text-pink-700">
           Logged Periods
@@ -28,7 +28,11 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
           </div>
         ) : (
           <div className="space-y-3">
-            {entries.map((entry, index) => (
+            {entries.map((entry, index) => {
+              const moodData = moods.find((mood) => mood.value === entry.mood)
+              const MoodIcon = moodData?.icon
+
+  return (
               <div
                 key={index}
                 className="bg-white border-l-4 border-pink-600 rounded-lg p-4 shadow-sm flex justify-between items-start"
@@ -44,10 +48,17 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
                     </p>
                   )}
 
-                  {entry.mood && (
-                    <p className="text-xl mt-2">{entry.mood}</p>
-                    )}
+                 {entry.mood && (
+  <div className="flex items-center gap-2 mt-2">
+    {MoodIcon && (
+      <MoodIcon className="h-5 w-5 text-pink-500" />
+    )}
 
+    <span className="text-xl capitalize">
+      {entry.mood}
+    </span>
+  </div>
+)}
                      {entry.flow && (
                   <p className="text-sm text-gray-600 mt-1">
                     Flow: {entry.flow}
@@ -72,7 +83,8 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
                   Delete
                 </Button>
               </div>
-            ))}
+        )
+      })}
           </div>
         )}
 
