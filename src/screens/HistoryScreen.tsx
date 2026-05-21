@@ -47,24 +47,34 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
                       End: {formatPrettyDate(entry.endDate)}
                     </p>
                   )}
+{entry.mood && (
+  <div className="mt-3 space-y-1">
 
-                 {entry.mood && (
-  <div className="flex items-center gap-2 mt-2">
-    {MoodIcon && (
-      <MoodIcon className="h-5 w-5 text-pink-500" />
-    )}
+    <p className="text-sm text-gray-400">
+      Mood: 
+    </p>
 
-    <span className="text-xl capitalize">
-      {entry.mood}
-    </span>
+    <div className="flex items-center gap-2">
+      {MoodIcon && (
+        <MoodIcon className="h-5 w-5 text-pink-500" />
+      )}
+
+      <span className="capitalize text-gray-700">
+        {entry.mood}
+      </span>
+    </div>
+
   </div>
 )}
-                     {entry.flow && (
-                  <p className="text-sm text-gray-600 mt-1">
-                    Flow: {entry.flow}
-                  </p>)
-                  }
+                    <div className="mt-3 space-y-1">
+  <p className="text-sm text-gray-400">
+    Flow:
+  </p>
 
+  <p className="capitalize text-gray-700">
+    {entry.flow}
+  </p>
+</div>
 
                 </div>
 
