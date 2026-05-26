@@ -1,54 +1,54 @@
-import type { PeriodEntry } from "@/types/period"
-import { Link } from "react-router-dom"
-import { Button } from "@/components/ui/button"
-import { calculateAverageCycle } from "@/lib/utils"
-import { predictNextPeriod } from "@/lib/utils"
-import { formatPrettyDate } from "@/lib/utils"
-import { getLastCycleLength } from "@/lib/utils"
-import { getCycleConsistency } from "@/lib/utils"
-import { getConsistencyColor } from "@/lib/utils"
-import { getCurrentPhase } from "@/lib/utils"
-import { getPhaseDescription } from "@/lib/utils"
-import { useMemo } from "react"
+import type { PeriodEntry } from "@/types/period";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { calculateAverageCycle } from "@/lib/utils";
+import { predictNextPeriod } from "@/lib/utils";
+import { formatPrettyDate } from "@/lib/utils";
+import { getLastCycleLength } from "@/lib/utils";
+import { getCycleConsistency } from "@/lib/utils";
+import { getConsistencyColor } from "@/lib/utils";
+import { getCurrentPhase } from "@/lib/utils";
+import { getPhaseDescription } from "@/lib/utils";
+import { useMemo } from "react";
 import {
   Droplets,
   CalendarDays,
   Activity,
   TrendingUp,
-  Moon
-} from "lucide-react"
-
+  Moon,
+} from "lucide-react";
+import CycleProgressRing from "@/components/CycleProgressRing";
 
 type Props = {
-  periodEntries: PeriodEntry[]
-}
+  periodEntries: PeriodEntry[];
+};
 
 type DashboardCardProps = {
-  title: string
-  value: string
-  valueClassName?: string
-  icon?: React.ReactNode
-}
+  title: string;
+  value: string;
+  valueClassName?: string;
+  icon?: React.ReactNode;
+};
 
 function DashboardCard({
   title,
   value,
   valueClassName = "",
   icon,
-}: DashboardCardProps) 
-{
+}: DashboardCardProps) {
   return (
     // <div
     //   className={`
-    //     rounded-2xl 
-    //     border 
-    //     p-4 
-    //     shadow-sm 
+    //     rounded-2xl
+    //     border
+    //     p-4
+    //     shadow-sm
     //     bg-white
     //   `}
     // >
 
-<div className="
+    <div
+      className="
   rounded-2xl
   border
   p-4
@@ -59,15 +59,13 @@ function DashboardCard({
   duration-300
   hover:border-pink-200
   hover:shadow-md
-">
-  
-  <div className="flex items-center gap-2">
-  {icon}
+"
+    >
+      <div className="flex items-center gap-2">
+        {icon}
 
-  <p className="text-sm text-gray-500">
-    {title}
-  </p>
-</div>
+        <p className="text-sm text-gray-500">{title}</p>
+      </div>
 
       <p
         className={`
@@ -80,39 +78,60 @@ function DashboardCard({
         {value}
       </p>
     </div>
-  )
+  );
 }
 
 function DashboardScreen({ periodEntries }: Props) {
-  const averageCycle = useMemo( () => calculateAverageCycle(periodEntries), [periodEntries])
-  const predictedDate = useMemo( () => predictNextPeriod(periodEntries),[periodEntries])
-  const lastCycle = getLastCycleLength(periodEntries)
-  const consistency = getCycleConsistency(periodEntries)
-  const colorClass = consistency ? getConsistencyColor(consistency) : ""
-  const currentPhase = getCurrentPhase(periodEntries)
-  const phaseDescription = getPhaseDescription(currentPhase)
+  const averageCycle = useMemo(
+    () => calculateAverageCycle(periodEntries),
+    [periodEntries],
+  );
+  const predictedDate = useMemo(
+    () => predictNextPeriod(periodEntries),
+    [periodEntries],
+  );
+  const lastCycle = getLastCycleLength(periodEntries);
+  const consistency = getCycleConsistency(periodEntries);
+  const colorClass = consistency ? getConsistencyColor(consistency) : "";
+  const currentPhase = getCurrentPhase(periodEntries);
+  const phaseDescription = getPhaseDescription(currentPhase);
+  const today = new Date();
 
+  const latestEntry = periodEntries[periodEntries.length - 1];
+  const cycleStart = new Date(latestEntry.startDate);
 
+  const currentDayInCycle =
+    Math.floor(
+      (today.getTime() - cycleStart.getTime()) / (1000 * 60 * 60 * 24),
+    ) + 1;
+
+  const cycleLength = calculateAverageCycle(periodEntries);
+  const safeCycleLength = cycleLength ?? 28;
+  const safeLabel = currentPhase ?? "Unknown phase";
 
   return (
     <div className="max-w-md mx-auto p-4 space-y-4">
-        <h1 className="text-2xl font-bold text-center text-pink-700">
-          Your Cycle Insights
-        </h1>
-{(averageCycle || lastCycle || predictedDate) && (
-   
+      <h1 className="text-2xl font-bold text-center text-pink-700">
+        Your Cycle Insights
+      </h1>
 
- <>
-   <div className="grid grid-cols-2 gap-3">
-    
-   <DashboardCard
-  title="Average Cycle"
-  value={averageCycle ? `${averageCycle} days` : "Not enough data"}
-  valueClassName="text-pink-600"
-  // icon={<Droplets className="h-4 w-4 text-pink-500" />}
-  icon = {
-  <Droplets
-  className="
+      <CycleProgressRing
+        currentDay={currentDayInCycle}
+        cycleLength={safeCycleLength}
+        label={safeLabel}
+      />
+
+      {(averageCycle || lastCycle || predictedDate) && (
+        <>
+          <div className="grid grid-cols-2 gap-3">
+            <DashboardCard
+              title="Average Cycle"
+              value={averageCycle ? `${averageCycle} days` : "Not enough data"}
+              valueClassName="text-pink-600"
+              // icon={<Droplets className="h-4 w-4 text-pink-500" />}
+              icon={
+                <Droplets
+                  className="
     h-4
     w-4
     text-pink-500
@@ -121,16 +140,17 @@ function DashboardScreen({ periodEntries }: Props) {
     group-hover:text-pink-700
     group-hover:scale-115
   "
-/>}
-  
-  
-/>
+                />
+              }
+            />
 
-<DashboardCard
-  title="Last Cycle"
-  value={lastCycle ? `${lastCycle} days` : "Not enough data"}
-  valueClassName="text-purple-600"
-  icon={<Activity className="
+            <DashboardCard
+              title="Last Cycle"
+              value={lastCycle ? `${lastCycle} days` : "Not enough data"}
+              valueClassName="text-purple-600"
+              icon={
+                <Activity
+                  className="
     h-4
     w-4
     text-pink-500
@@ -138,20 +158,22 @@ function DashboardScreen({ periodEntries }: Props) {
     duration-300
     group-hover:text-pink-700
     group-hover:scale-115
-  "/>}
+  "
+                />
+              }
+            />
 
-  
-/>
-
-<DashboardCard
-  title="Next Period"
-  value={
-    predictedDate
-      ? formatPrettyDate(predictedDate)
-      : "Not enough data"
-  }
-  valueClassName="text-blue-600"
-  icon={<CalendarDays className="
+            <DashboardCard
+              title="Next Period"
+              value={
+                predictedDate
+                  ? formatPrettyDate(predictedDate)
+                  : "Not enough data"
+              }
+              valueClassName="text-blue-600"
+              icon={
+                <CalendarDays
+                  className="
     h-4
     w-4
     text-pink-500
@@ -159,15 +181,18 @@ function DashboardScreen({ periodEntries }: Props) {
     duration-300
     group-hover:text-pink-700
     group-hover:scale-115
-  " />}
-  
-/>
+  "
+                />
+              }
+            />
 
-<DashboardCard
-  title="Consistency"
-  value={consistency ?? "Not enough data"}
-  valueClassName={colorClass}
-   icon={<TrendingUp className="
+            <DashboardCard
+              title="Consistency"
+              value={consistency ?? "Not enough data"}
+              valueClassName={colorClass}
+              icon={
+                <TrendingUp
+                  className="
     h-4
     w-4
     text-pink-500
@@ -175,14 +200,15 @@ function DashboardScreen({ periodEntries }: Props) {
     duration-300
     group-hover:text-pink-700
     group-hover:scale-115
-  " />}
-/>
+  "
+                />
+              }
+            />
+          </div>
 
-
-</div>
-
-{/* <div className="rounded-2xl border p-5 shadow-md bg-white space-y-2"> */}
-<div className="
+          {/* <div className="rounded-2xl border p-5 shadow-md bg-white space-y-2"> */}
+          <div
+            className="
   rounded-2xl
   border
   p-5
@@ -194,11 +220,12 @@ function DashboardScreen({ periodEntries }: Props) {
   duration-300
   hover:border-pink-200
   hover:shadow-md
-">
-  <div className="flex items-start gap-3">
-    {/* <Moon className="h-6 w-6 text-pink-500 mt-0.5" /> */}
-<Moon
-  className="
+"
+          >
+            <div className="flex items-start gap-3">
+              {/* <Moon className="h-6 w-6 text-pink-500 mt-0.5" /> */}
+              <Moon
+                className="
     h-6
     w-6
     text-pink-500
@@ -208,47 +235,36 @@ function DashboardScreen({ periodEntries }: Props) {
     group-hover:text-pink-700
     group-hover:scale-110
   "
-/>
-    <div className="space-y-1">
-      <p className="text-sm text-gray-500">
-        Current Phase
-      </p>
+              />
+              <div className="space-y-1">
+                <p className="text-sm text-gray-500">Current Phase</p>
 
-      <h2 className="text-lg font-semibold text-pink-700">
-        {currentPhase ?? "Not enough data"}
-      </h2>
+                <h2 className="text-lg font-semibold text-pink-700">
+                  {currentPhase ?? "Not enough data"}
+                </h2>
 
-      <p className="text-gray-600 text-sm leading-relaxed">
-        {phaseDescription}
-      </p>
-    </div>
-  </div>
-</div>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {phaseDescription}
+                </p>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
 
-</>  
+      <Link to="/tracker">
+        <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white mt-4">
+          Back to Calendar
+        </Button>
+      </Link>
 
-)}
-
-        <Link to="/tracker">
-          <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white mt-4">
-            Back to Calendar
-          </Button>
-        </Link>
-      
       <Link to="/history">
-<Button className="w-full py-3 bg-pink-600 hover:bg-pink-700 focus:ring-purple-500 text-white mt-4">
-  Back to Logged Dates
-</Button>
-</Link>
-
-</div>
-
-
-    
- 
-)
-
-  
+        <Button className="w-full py-3 bg-pink-600 hover:bg-pink-700 focus:ring-purple-500 text-white mt-4">
+          Back to Logged Dates
+        </Button>
+      </Link>
+    </div>
+  );
 }
 
-export default DashboardScreen
+export default DashboardScreen;
