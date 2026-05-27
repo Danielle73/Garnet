@@ -115,11 +115,13 @@ function DashboardScreen({ periodEntries }: Props) {
         Your Cycle Insights
       </h1>
 
-      <CycleProgressRing
-        currentDay={currentDayInCycle}
-        cycleLength={safeCycleLength}
-        label={safeLabel}
-      />
+      <div className="bg-white rounded-2xl shadow-sm p-8 flex flex-col items-center">
+        <CycleProgressRing
+          currentDay={currentDayInCycle}
+          cycleLength={safeCycleLength}
+          label={safeLabel}
+        />
+      </div>
 
       {(averageCycle || lastCycle || predictedDate) && (
         <>
