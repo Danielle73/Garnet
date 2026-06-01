@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { HelpCircle } from "lucide-react";
 import InstructionModal from "@/components/ui/instructionModal";
 import { predictNextPeriod } from "@/lib/utils";
-import { Smile, Meh, Frown, Bed, Annoyed } from "lucide-react";
+import { Smile, Meh, Frown, Bed, Annoyed, Droplet } from "lucide-react";
+import { flows } from "@/lib/flows";
 
 // Helper function to get all dates between two dates
 const getDatesInRange = (startDate: Date, endDate: Date): Date[] => {
@@ -82,15 +83,11 @@ function TrackerScreen({
       icon: Annoyed,
     },
   ];
+
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
   const [selectedFlow, setSelectedFlow] = useState<
     "light" | "medium" | "heavy" | null
   >(null);
-  const flows: { label: string; value: "light" | "medium" | "heavy" }[] = [
-    { label: "Light", value: "light" },
-    { label: "Medium", value: "medium" },
-    { label: "Heavy", value: "heavy" },
-  ];
 
   const handleSubmit = () => {
     if (!selectedDate) return;
@@ -258,13 +255,20 @@ function TrackerScreen({
               <button
                 key={flow.value}
                 onClick={() => setSelectedFlow(flow.value)}
-                className={`px-3 py-1 rounded-full text-sm transition ${
+                className={`flex flex-col items-center p-3 rounded-lg border transition-all ${
                   selectedFlow === flow.value
-                    ? "bg-pink-200 text-pink-800"
-                    : "bg-gray-100 hover:bg-gray-200"
+                    ? "bg-pink-100 text-pink-700"
+                    : "bg-white border"
                 }`}
               >
-                {flow.label}
+                {/* droplets */}
+                <div className="flex text-pink-500">
+                  {Array.from({ length: flow.droplets }).map((_, i) => (
+                    <Droplet key={i} size={12} />
+                  ))}
+                </div>
+                {/* label */}
+                <span className="text-xs mt-1">{flow.label}</span>{" "}
               </button>
             ))}
           </div>
