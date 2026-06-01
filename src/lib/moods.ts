@@ -1,4 +1,4 @@
-import { Smile, Meh, Frown } from "lucide-react";
+import { Smile, Meh, Frown, Bed, Annoyed } from "lucide-react";
 
 export const moods = [
   {
@@ -15,5 +15,15 @@ export const moods = [
     label: "Sad",
     value: "sad",
     icon: Frown,
+  },
+  {
+    label: "Tired",
+    value: "tired",
+    icon: Bed,
+  },
+  {
+    label: "Annoyed",
+    value: "annoyed",
+    icon: Annoyed,
   },
 ];
