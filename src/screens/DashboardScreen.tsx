@@ -16,6 +16,7 @@ import {
   Activity,
   TrendingUp,
   Moon,
+  BarChart3,
 } from "lucide-react";
 import CycleProgressRing from "@/components/CycleProgressRing";
 
@@ -90,6 +91,28 @@ function DashboardScreen({ periodEntries }: Props) {
     () => predictNextPeriod(periodEntries),
     [periodEntries],
   );
+
+  if (periodEntries.length === 0) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center">
+        <BarChart3 className="w-12 h-12 text-pink-500 mb-4" />
+        <h1 className="text-2xl font-bold text-pink-700">
+          No insights available yet
+        </h1>
+
+        <p className="mt-3 text-gray-600 max-w-sm">
+          Log your first period to start viewing cycle insights and predictions.
+        </p>
+
+        <Link to="/tracker">
+          <Button className="w-full bg-pink-600 hover:bg-pink-700 text-white mt-4">
+            Log First Period
+          </Button>
+        </Link>
+      </div>
+    );
+  }
+
   const lastCycle = getLastCycleLength(periodEntries);
   const consistency = getCycleConsistency(periodEntries);
   const colorClass = consistency ? getConsistencyColor(consistency) : "";
