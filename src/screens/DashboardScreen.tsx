@@ -189,7 +189,7 @@ function DashboardScreen({ periodEntries }: Props) {
             />
 
             <DashboardCard
-              title="Next Period"
+              title="Next Predicted Period"
               value={
                 predictedDate
                   ? formatPrettyDate(predictedDate)

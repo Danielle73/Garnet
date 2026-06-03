@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 type Props = {
   currentDay: number;
   cycleLength: number;
@@ -16,7 +18,17 @@ export default function CycleProgressRing({
 
   const progress = Math.min(currentDay / cycleLength, 1);
   const progressPercent = Math.round(progress * 100);
-  const strokeDashoffset = circumference - progress * circumference;
+
+  const [animatedProgress, setAnimatedProgress] = useState(0);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setAnimatedProgress(progress);
+    }, 200);
+
+    return () => clearTimeout(timeout);
+  }, [progress]);
+
+  const strokeDashoffset = circumference - animatedProgress * circumference;
 
   const phaseColors: Record<string, string> = {
     menstrual: "#ef4444",
