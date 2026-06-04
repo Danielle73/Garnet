@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { type PeriodEntry } from "@/types/period";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,9 @@ interface HistoryScreenProps {
 }
 
 function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
+  const [showAllHistory, setShowAllHistory] = useState(false);
+  const displayedEntries = showAllHistory ? entries : entries.slice(0, 3);
+
   return (
     <div className="min-h-screen bg-linear-to-br from-purple-50 to-pink-50 px-4 py-6">
       <div className="max-w-md mx-auto space-y-6">
@@ -23,7 +27,7 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
           </div>
         ) : (
           <div className="space-y-3">
-            {entries.map((entry, index) => {
+            {displayedEntries.map((entry, index) => {
               const moodData = moods.find((mood) => mood.value === entry.mood);
               const MoodIcon = moodData?.icon;
 
@@ -81,6 +85,17 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
               );
             })}
           </div>
+        )}
+
+        {entries.length > 3 && (
+          <button
+            onClick={() => setShowAllHistory(!showAllHistory)}
+            className="mt-4 text-pink-600 font-medium hover:text-pink-700 transition-colors"
+          >
+            {showAllHistory
+              ? "Show less ↑"
+              : `View ${entries.length - 3} previous periods ↓`}
+          </button>
         )}
 
         <Link to="/tracker">
