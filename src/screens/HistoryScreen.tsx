@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { formatPrettyDate } from "@/lib/utils";
 import { moods } from "@/lib/moods";
+import { flows } from "@/lib/flows";
+import { Droplet } from "lucide-react";
 
 interface HistoryScreenProps {
   entries: PeriodEntry[];
@@ -30,6 +32,7 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
             {displayedEntries.map((entry, index) => {
               const moodData = moods.find((mood) => mood.value === entry.mood);
               const MoodIcon = moodData?.icon;
+              const flowData = flows.find((flow) => flow.value === entry.flow);
 
               return (
                 <div
@@ -58,15 +61,30 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
                             )}
 
                             <span className="capitalize text-gray-700">
-                              {entry.mood}
+                              {entry.flow}
                             </span>
                           </div>
                         </div>
                       )}
                       <div className="mt-3 space-y-1">
                         <p className="text-sm text-gray-400">Flow:</p>
+                        <div className="flex items-center gap-2">
+                          <div className="flex">
+                            {Array.from(
+                              { length: flowData?.droplets ?? 1 },
+                              (_, index) => (
+                                <Droplet
+                                  key={index}
+                                  className="h-4 w-4 text-pink-500"
+                                />
+                              ),
+                            )}
+                          </div>
 
-                        <p className="capitalize text-gray-700">{entry.flow}</p>
+                          <span className="capitalize text-gray-700">
+                            {entry.flow}
+                          </span>
+                        </div>{" "}
                       </div>
                     </div>
                   </div>
