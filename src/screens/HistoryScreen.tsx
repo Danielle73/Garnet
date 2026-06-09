@@ -14,7 +14,8 @@ interface HistoryScreenProps {
 
 function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
   const [showAllHistory, setShowAllHistory] = useState(false);
-  const displayedEntries = showAllHistory ? entries : entries.slice(0, 3);
+  const sortedEntries = [...entries].reverse();
+  const displayedEntries = showAllHistory ? sortedEntries : sortedEntries.slice(0, 3);
 
   return (
     <div className="min-h-screen bg-linear-to-br from-purple-50 to-pink-50 px-4 py-6">
@@ -115,7 +116,7 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
           >
             {showAllHistory
               ? "Show less ↑"
-              : `View ${entries.length - 3} previous periods ↓`}
+              : `Show older entries ↓`}
           </button>
         )}
 
