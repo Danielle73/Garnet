@@ -15,7 +15,9 @@ interface HistoryScreenProps {
 function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
   const [showAllHistory, setShowAllHistory] = useState(false);
   const sortedEntries = [...entries].reverse();
-  const displayedEntries = showAllHistory ? sortedEntries : sortedEntries.slice(0, 3);
+  const displayedEntries = showAllHistory
+    ? sortedEntries
+    : sortedEntries.slice(0, 3);
 
   return (
     <div className="min-h-screen bg-linear-to-br from-purple-50 to-pink-50 px-4 py-6">
@@ -30,14 +32,19 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
           </div>
         ) : (
           <div className="space-y-3">
-            {displayedEntries.map((entry, index) => {
+            {displayedEntries.map((entry) => {
               const moodData = moods.find((mood) => mood.value === entry.mood);
               const MoodIcon = moodData?.icon;
               const flowData = flows.find((flow) => flow.value === entry.flow);
+              const originalIndex = entries.findIndex(
+                (period) =>
+                  period.startDate === entry.startDate &&
+                  period.endDate === entry.endDate,
+              );
 
               return (
                 <div
-                  key={index}
+                  key={originalIndex}
                   className="bg-white border-l-4 border-pink-600 rounded-lg p-4 shadow-sm flex justify-between items-start"
                 >
                   <div>
@@ -90,7 +97,8 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
                     </div>
                   </div>
 
-                  <Link to={`/edit/${index}`}>
+                  <Link to={`/edit/${originalIndex}`}>
+                    {" "}
                     <Button size="sm" variant="secondary">
                       Edit
                     </Button>
@@ -99,7 +107,7 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
                   <Button
                     variant="destructive"
                     size="sm"
-                    onClick={() => onDelete(index)}
+                    onClick={() => onDelete(originalIndex)}
                   >
                     Delete
                   </Button>
@@ -114,9 +122,7 @@ function HistoryScreen({ entries, onDelete }: HistoryScreenProps) {
             onClick={() => setShowAllHistory(!showAllHistory)}
             className="mt-4 text-pink-600 font-medium hover:text-pink-700 transition-colors"
           >
-            {showAllHistory
-              ? "Show less ↑"
-              : `Show older entries ↓`}
+            {showAllHistory ? "Show less ↑" : `Show older entries ↓`}
           </button>
         )}
 
